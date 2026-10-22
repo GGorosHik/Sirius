@@ -1,0 +1,21 @@
+[
+  {
+    "uid": "073d5ac0e154f5da",
+    "user": "Yeban",
+    "pcname": "KOMPUTER",
+    "ip": "127.0.0.1:52667",
+    "uos": "windows",
+    "adm": "false",
+    "status": 9999,
+    "firstseen": 1792674033,
+    "active": 1792677050,
+    "actwin": "Desktop",
+    "ucpu": "amd64",
+    "ugpu": "GPU",
+    "country": "RU",
+    "comment": "",
+    "ucolor": "#3b82f6",
+    "version": "0.28.2",
+    "logsize": "5712"
+  }
+]

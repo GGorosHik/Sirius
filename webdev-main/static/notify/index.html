@@ -1,0 +1,233 @@
+<script src="pages/notify.js"></script>
+<div style="display: none;" onclick="$('.mainpopup').hide(); $('.backblur').hide();" class="backblur"></div>
+<div class="mainheader">
+    <div class="headselectorbutton headselectorbuttonactive" onclick="">
+        <b>
+            <i18n>notify.tab_control</i18n>
+        </b>
+    </div>
+</div>
+<div style="display: flex;">
+    <div class="themepage methodspage">
+        <div class="buildcreatebut" id=""
+            onclick="$('#newmeth').show();$('.backblur').show();$('#firstbut').click();">
+            <p><i18n>notify.create_method</i18n></p>
+        </div>
+        <div class="mainpopup" id="newmeth">
+            <div class="pophead">
+                <div class="popname">
+                    <b><i18n>notify.new_method_title</i18n></b>
+                </div>
+                <svg class="closebutton" onclick="$('.mainpopup').hide(); $('.backblur').hide();"
+                    xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 384 512">
+                    <path
+                        d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+                    </path>
+                </svg>
+            </div>
+            <div class="notifyselector">
+                <div id="firstbut" class="notifyselitem" style="border-bottom: var(--color1) 2px solid;"
+                    onclick="changesel(this , '.telegrammethpage'); window.selmethtype = 0"><i18n>notify.method_telegram</i18n></div>
+                <div class="notifyselitem" onclick="changesel(this , '.discordmethpage'); window.selmethtype = 1">
+                    <i18n>notify.method_discord</i18n>
+                </div>
+            </div>
+            <div style="font-size: 20px;" class="methpage telegrammethpage">
+                <center>
+                    <input style="text-align:center; margin-top: 30px; margin-bottom: 20px;" id="methtgname" type="text"
+                        value="" i18n-attr="placeholder:builder.placeholder_name">
+                    <!-- <select style="" class="selector" id="" onchange="" >
+                                <option>
+                                    with the log
+                                </option>
+                                <option>
+                                    without a log
+                                </option>
+                            </select> -->
+                    <div><input style="text-align:center; width: 550px; margin-top: 25px;" id="notifytgtok" type="text"
+                            value="" i18n-attr="placeholder:notify.placeholder_token"></div>
+                    <input style="text-align:center; width: 200px; margin-top: 25px;" id="notifytgchid" type="text"
+                        value="" i18n-attr="placeholder:notify.placeholder_chat_id">
+
+                    <div style="margin-top: 25px;" onclick="checkmethod()" class="button1"><i18n>notify.check</i18n></div>
+                    <div id="tokencheckstatus" style="margin-top: 10px;"></div>
+                </center>
+            </div>
+            <div class="methpage discordmethpage" style="display:none; font-size: 20px;">
+                <div><input style="text-align:center; margin-top: 30px; margin-bottom: 20px;" id="methdsname"
+                        type="text" value="" i18n-attr="placeholder:builder.placeholder_name"></div>
+                <input style="text-align:center; width: 550px; margin-top: 25px;" id="notifydshook" type="text" value=""
+                    i18n-attr="placeholder:notify.placeholder_webhook">
+                <center>
+                    <div style="margin-top: 35px;" onclick="checkmethod()" class="button1"><i18n>notify.check</i18n></div>
+                </center>
+            </div>
+            <div class="bottombutton">
+                <center>
+                    <div class="button1" onclick="addmethod()" style="width: calc(100% - 24px);"><i18n>notify.create_method_btn</i18n></div>
+                </center>
+            </div>
+        </div>
+        <div class="maingrid" id="meth">
+
+
+        </div>
+    </div>
+    <div style="" class="themepage triggerpage">
+        <div class="buildcreatebut" id="createtrigbut" onclick="shownewtrig(); $('#firstbut2').click();">
+            <p><i18n>notify.create_trigger</i18n></p>
+        </div>
+        <div class="maingrid" id="trig">
+        </div>
+        <div class="mainpopup" id="newtrig" style="width: 700px; height: 520px; box-sizing: border-box; overflow: hidden; position: relative;">
+            <div class="pophead">
+                <div class="popname">
+                    <b><i18n>notify.new_trigger_title</i18n></b>
+                </div>
+                <svg class="closebutton" onclick="$('.mainpopup').hide(); $('.backblur').hide();"
+                    xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 384 512">
+                    <path
+                        d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+                    </path>
+                </svg>
+            </div>
+            <div class="notifyselector">
+                <div class="notifyselitem" id="firstbut2" style="border-bottom: var(--color1) 2px solid;"
+                    onclick="window.trigsel = 'panel'; changesel(this , '.fulltrigpage'); window.selmethtype = 0">
+                    <i18n>notify.tab_everyone</i18n></div>
+                <div class="notifyselitem"
+                    onclick="window.trigsel = 'build'; changesel(this , '.buildtrigpage'); window.selmethtype = 1"><i18n>notify.tab_build</i18n>
+                </div>
+                <div class="notifyselitem"
+                    onclick="window.trigsel = 'user'; changesel(this , '.usertrigpage'); window.selmethtype = 2"><i18n>notify.tab_user</i18n>
+                </div>
+            </div>
+
+            <div style="font-size: 14px; display: none;" class="methpage usertrigpage">
+                <div style="display: flex; height: 340px; box-sizing: border-box; padding: 10px 0;">
+                    <div style="width: 50%; align-content: center;">
+                        <center>
+                            <div><i18n>builder.lbl_method</i18n></div>
+                            <select class="methsel selector" id="methodsuser" onchange="">
+                            </select>
+                        </center>
+
+                        <center>
+                            <div style="margin-top: 20px;"><i18n>builder.lbl_event</i18n></div>
+                            <select class="othersel selector" id="" onchange="" style="">
+                                <option>
+                                    <i18n>builder.opt_connect</i18n>
+                                </option>
+                            </select>
+                        </center>
+                        <center>
+                            <div style="display: inline-flex; margin-top: 20px;">
+                                <div><input class="checkbox" id="Userattach" type="checkbox"></div>
+                                <div style="margin-top: 7px;" id="galka"><i18n>builder.attach_screen</i18n></div>
+                            </div>
+                        </center>
+                        <center>
+                            <div>
+                                <input style="text-align:center; margin-top: 30px; margin-bottom: 20px;" id="userhwid"
+                                    type="text" value="" i18n-attr="placeholder:notify.placeholder_user_id">
+                            </div>
+                        </center>
+                    </div>
+                    <div style="width: 50%; padding: 5px;">
+                        <textarea id="notifyusertextarea" class="textareatrig" i18n-attr="placeholder:builder.placeholder_select_method"
+                            style="background: #0d0d0d; border: 1px solid #333; border-radius: 4px; color: azure; height: 320px; max-height: 320px; resize: none; width: 100%; box-sizing: border-box; padding: 10px; font-family: monospace; font-size: 12px;"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div style="font-size: 14px; display: flex;" class="methpage fulltrigpage">
+                <div style="display: flex; width: 100%; height: 340px; box-sizing: border-box; padding: 10px 0;">
+                    <div style="width: 50%; align-content: center;">
+                        <center>
+                            <div><i18n>builder.lbl_method</i18n></div>
+                            <select class="methsel selector" id="notifymeth" onchange="">
+                            </select>
+                        </center>
+
+                        <center>
+                            <div style="margin-top: 20px;"><i18n>builder.lbl_event</i18n></div>
+                            <select class="othersel selector" id="notifytarget" onchange="changenamefull()" style="">
+                                <option>
+                                    <i18n>builder.opt_steal</i18n>
+                                </option>
+                                <option>
+                                    <i18n>builder.opt_install</i18n>
+                                </option>
+                                <option>
+                                    <i18n>builder.opt_connect</i18n>
+                                </option>
+                            </select>
+                        </center>
+                        <center>
+                            <div style="display: inline-flex; margin-top: 20px;">
+                                <div><input class="checkbox" id="Fullattach" type="checkbox"></div>
+                                <lable style="margin-top: 7px;" id="notifygalkafull"><i18n>builder.attach_log</i18n></lable>
+                            </div>
+                        </center>
+
+                    </div>
+                    <div style="width: 50%; padding: 5px;">
+                        <textarea id="notifyalltextarea" class="textareatrig" i18n-attr="placeholder:builder.placeholder_select_method"
+                            style="background: #0d0d0d; border: 1px solid #333; border-radius: 4px; color: azure; height: 320px; max-height: 320px; resize: none; width: 100%; box-sizing: border-box; padding: 10px; font-family: monospace; font-size: 12px;"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div style="font-size: 14px; display: none;" class="methpage buildtrigpage">
+                <div style="display: flex; height: 340px; box-sizing: border-box; padding: 10px 0;">
+                    <div style="width: 50%; align-content: center;">
+                        <center>
+                            <div><i18n>builder.lbl_method</i18n></div>
+                            <select class="methsel selector" id="methodsbuild" onchange="">
+                            </select>
+                        </center>
+
+                        <center>
+                            <div style="margin-top: 20px;"><i18n>builder.lbl_event</i18n></div>
+                            <select class="othersel selector" id="notifyeventbuild" onchange="changenamebuild()"
+                                style="">
+                                <option>
+                                    <i18n>builder.opt_steal</i18n>
+                                </option>
+                                <option>
+                                    <i18n>builder.opt_connect</i18n>
+                                </option>
+                                <option>
+                                    <i18n>builder.opt_install</i18n>
+                                </option>
+                            </select>
+                        </center>
+                        <center>
+                            <div style="display: inline-flex; margin-top: 20px;">
+                                <div><input class="checkbox" id="Buildattach" type="checkbox"></div>
+                                <lable style="margin-top: 7px;" id="notifygalkabuild"><i18n>builder.attach_log</i18n></lable>
+                            </div>
+                        </center>
+                        <center>
+                            <div>
+                                <input style="text-align:center; margin-top: 30px; margin-bottom: 20px;" id="buildhwid"
+                                    type="text" value="" i18n-attr="placeholder:builder.placeholder_build_id">
+                            </div>
+                        </center>
+
+                    </div>
+                    <div style="width: 50%; padding: 5px;">
+                        <textarea id="notifybuildtextarea" class="textareatrig" i18n-attr="placeholder:builder.placeholder_select_method"
+                            style="background: #0d0d0d; border: 1px solid #333; border-radius: 4px; color: azure; height: 320px; max-height: 320px; resize: none; width: 100%; box-sizing: border-box; padding: 10px; font-family: monospace; font-size: 12px;"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="bottombutton" style="margin-top: 15px;">
+                <center>
+                    <div class="button1" onclick="addtrig()" style="width: calc(100% - 24px);"><i18n>notify.create_trigger_btn</i18n></div>
+                </center>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>

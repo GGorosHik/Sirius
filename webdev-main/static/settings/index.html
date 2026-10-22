@@ -1,0 +1,614 @@
+<!-- <div class="headinfo">Settings</div> -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+<div class="mainheader">
+    <div class="headselectorbutton headselectorbuttonactive" onclick="headsel('.themepage',this);">
+        <b>
+            <i18n>settings.tab_main</i18n>
+        </b>
+    </div>
+    <!-- <div id="secureheaderbut" class="headselectorbutton" onclick="headsel('.securitypage',this);"><b>
+            security        </b></div> -->
+</div>
+<div class="backblur" style="display: none; " onclick="$('.popup, .backblur').hide()"></div>
+<div class="themepage">
+    <div class="backblur" style="display: none;"></div>
+    <div class="settingsflex">
+    <!-- <div class="modulename"> <b>pre-made themes</b> </div>
+    <div class="themeblock">
+        <div class="chilltheme">
+            <img height=160px; width=270px src="https://i.imgur.com/J0sxQtT.jpeg">
+        </div>
+        <div class="chilltheme">
+            <img height=160px; width=270px src="https://i.imgur.com/J0sxQtT.jpeg">
+        </div>
+        <div class="chilltheme">
+            <img height=160px; width=270px src="https://i.imgur.com/J0sxQtT.jpeg">
+        </div>
+
+        <div class="chilltheme">
+            <img height=160px; width=270px src="https://i.imgur.com/J0sxQtT.jpeg">
+        </div>
+
+        <div class="chilltheme">
+            <img height=160px; width=270px src="https://i.imgur.com/J0sxQtT.jpeg">
+        </div>
+
+        <div class="chilltheme">
+            <img height=160px; width=270px src="https://i.imgur.com/J0sxQtT.jpeg">
+        </div>
+
+        <div class="chilltheme">
+            <img height=160px; width=270px src="https://i.imgur.com/J0sxQtT.jpeg">
+        </div>
+
+    </div> -->
+    <table class="tablebox2 " style="margin: 20px">
+        <thead></thead>
+        <tbody>
+            <tr class="tableel">
+                <td colspan="2">
+                    <div style="font-size:11px; opacity:0.7; margin-bottom:6px;"><i18n>settings.background</i18n></div>
+                    <div class="backgraundblock">
+
+                        <div style="display:flex; box-shadow: inset 0 0 10px color-mix(in srgb, var(--color1), transparent 60%); width: 274px; box-sizing:border-box; margin-bottom:6px;">
+
+                                <div class="chillselectorleft chillselectora" style="flex:1; width:auto;" onclick="dgchange(this,1);imageconf();">
+                                    <div class="chillselectback">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            viewBox="0 0 512 512">
+                                            <path
+                                                d="M64 64C46.3 64 32 78.3 32 96V329.4l67.7-67.7c15.6-15.6 40.9-15.6 56.6 0L224 329.4 355.7 197.7c15.6-15.6 40.9-15.6 56.6 0L480 265.4V96c0-17.7-14.3-32-32-32H64zM32 374.6V416c0 17.7 14.3 32 32 32h41.4l96-96-67.7-67.7c-3.1-3.1-8.2-3.1-11.3 0L32 374.6zM389.7 220.3c-3.1-3.1-8.2-3.1-11.3 0L150.6 448H448c17.7 0 32-14.3 32-32V310.6l-90.3-90.3zM0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm160 48a16 16 0 1 0 -32 0 16 16 0 1 0 32 0zm-64 0a48 48 0 1 1 96 0 48 48 0 1 1 -96 0z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="chillselectorright" style="flex:1; width:auto;" onclick="dgchange(this,2);">
+                                    <div class="chillselectback">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            viewBox="0 0 512 512">
+                                            <path
+                                                d="M448 96c17.7 0 32 14.3 32 32V384c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32V128c0-17.7 14.3-32 32-32H448zM64 64C28.7 64 0 92.7 0 128V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H64z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="backgraundtheme">
+                            <div class="backgraundima">
+                                <div id="chengeima" src="" style="box-shadow: inset 0 0 10px color-mix(in srgb, var(--color1), transparent 60%); box-sizing:border-box; width:272px;"> </div>
+                                <input id="file-input" type="file" name="name" style="display: none;" />
+                            </div>
+                            <div class="backgraundcol" style="display:none;">
+                                <input id="selcolor" type="color" class="" value="var(--color1)"
+                                    style="width:274px; height:166px; padding:0; margin:0;box-shadow: inset 0 0 10px color-mix(in srgb, var(--color1), transparent 60%);">
+                            </div>
+                            <div style="display:flex;margin-top: 6px;">
+
+                                <!-- <div style="" title="">
+                                <input id="ranbowgalka" style="margin-top: 6px; margin-left: 40px;  margin-right: 0px;" class="checkbox" type="checkbox"
+                                    onchange='rainbow(); ranbowsave($("#ranbowgalka").prop("checked"));'> <label for="ranbowgalka">rainbow</label>
+                            </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="tableel">
+                <td colspan="2">
+                    <div style="font-size:11px; opacity:0.7; margin-bottom:6px;"><i18n>settings.color</i18n></div>
+                    <input id="maincolsel" type="color" class="colorimp" value="var(--color1)" style="width:240px; border-radius: 10px;"
+                        onclick="">
+                </td>
+            </tr>
+            <tr class="tableel">
+                <td colspan="2">
+                    <div style="font-size:11px; opacity:0.7; margin-bottom:6px;"><i18n>settings.sound</i18n></div>
+                    <input onchange="changevolume()" style="margin:0;" type="range" id="volume" min="0" max="1"
+                        step="0.1" value="0.5">
+                </td>
+            </tr>
+
+            <tr class="tableel">
+                <td colspan="2">
+                    <div style="font-size:11px; opacity:0.7; margin-bottom:6px;"><i18n>settings.language</i18n></div>
+                    <select id="langSelector" class="selector" style="margin:0;" data-i18n-langselect onchange="setLang(this.value)">
+                        <option value="en"><i18n>common.lang_en</i18n></option>
+                        <option value="ru"><i18n>common.lang_ru</i18n></option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="tablebox2 accounttable" style="margin: 20px">
+        <thead></thead>
+        <tbody>
+            <tr class="tableel" onclick="">
+                <td colspan="2">
+                    <div style="font-size:11px; opacity:0.7; margin-bottom:6px;"><i18n>settings.login</i18n></div>
+                    <b id="getmelogin">MOLAXES</b>
+                </td>
+            </tr>
+
+            <tr class="tableel" onclick="">
+                <td colspan="2">
+                    <div style="font-size:11px; opacity:0.7; margin-bottom:6px;"><i18n>settings.your_mail</i18n></div>
+                    <b id="getmemail">t.me/MolaxesCrack</b>
+                </td>
+            </tr>
+
+            <!-- <tr class="tableel" style="cursor:pointer;"
+                    onclick="notification('red','Unavailable','Now function not work')">
+                    <td>Account auto-delete:</td>
+                    <td><b id="getmeadel">loading</b></td>
+                    <td class="imco"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 320 512">
+                            <path
+                                d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                        </svg></td>
+                </tr> -->
+
+        </tbody>
+    </table>
+    </div>
+    <div class="securitypage" style="display:none;">
+
+    </div>
+
+    <div id="mainsetblock">
+        <div>
+            <div id="mainsetblock2" style="margin:30px;">
+
+
+            </div>
+
+            <div class="overtablebox2 topsecret">
+                <table class="tablebox2">
+                    <thead></thead>
+                    <tbody>
+                        <tr class="tableel" onclick="">
+                            <td colspan="3">
+                                <div style="font-size:11px; opacity:0.7; margin-bottom:6px;">New user:</div>
+                                <select id="" class="selector" style="margin-left: 20px;">
+                                    <option>WebRat</option>
+                                    <option>Custom</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="tableel">
+                            <td colspan="3">
+                                <div style="font-size:11px; opacity:0.7; margin-bottom:6px;">Volume</div>
+                                <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- <div style="margin: -57px 2px 2px 63px;">
+
+
+
+                 <div class="cstblock">
+                            Text color                            <div style="" title="">
+                                <input id="teatcolsel" class="checkbox" type="checkbox">
+                                Enabled                            </div>
+
+                            <div>
+                                <input type="color" class="colorimp" value="var(--color1)" style="width:100px;">
+                            </div>
+                        </div> 
+
+                    <div class="overtablebox2">
+                        <table class="tablebox2">
+                            <thead>
+                                <tr>
+                                    <td colspan="2">
+                                        <h3>
+                                            <center>Персонализация</center>
+                                        </h3>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="tableel">
+                                    <td>Language</td>
+                                    <td>
+                                        <select id="filter11" class="selector" style="margin-left: 20px;">
+                                            <option>
+                                                English                                            </option>
+                                            <option>
+                                                Russian                                            </option>
+                                            <option>
+                                                Ukraine                                            </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="tableel">
+                                    <td>Шрифт:</td>
+                                    <td>
+                                        <select class="selector" id="fontFamily" style="width:90%;"
+                                            onchange="changeFont()">
+                                            <option value="Arial">Arial</option>
+                                            <option value="Helvetica">Helvetica</option>
+                                            <option value="Times New Roman">Times New Roman</option>
+                                            <option value="Georgia">Georgia</option>
+                                            <option value="Verdana">Verdana</option>
+                                        </select>
+                                    </td>
+                    </div> -->
+            <!-- </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modulename"> <b>
+        </b> </div>
+    <div style="display:flex; margin-left:20px;"> -->
+            <!-- <div>
+                        <div style="margin-left:40px;margin-bottom:10px;" title="">
+                            <input id="turnnotify" checked class="checkbox" type="checkbox">
+                            
+                        </div>
+
+                        <div class="alertblock">
+                            <div style="display:flex; justify-content: space-between;">
+                                <div class="abset" onclick="notifypos('.abset',this); notifypossave('lu'); ">
+
+                                </div>
+                                <div class="abset" onclick="notifypos('.abset',this); notifypossave('ru'); ">
+
+                                </div>
+                            </div>
+                            <div style="display:flex; justify-content: space-between;">
+                                <div class="abset" onclick="notifypos('.abset',this); notifypossave('ld'); "
+                                    style="margin-top: 24%;">
+
+                                </div>
+                                <div class="abset" onclick="notifypos('.abset',this); notifypossave('rd'); "
+                                    style="margin-top: 24%;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+            <!-- <div class="overtablebox2">
+            <table class="tablebox2">
+                <thead>
+                    <tr>
+                        <td colspan="2">
+                            <h3>
+                                <center>notify settings</center>
+                            </h3>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="tableel">
+                        <td>New user</td>
+                        <td>
+                            <select class="selector" style="margin-left: 20px;">
+                                <option>none</option>
+                                <option>sudo</option>
+                                <option>bell</option>
+                                <option>camera</option>
+                                <option>fun</option>
+                                <option>custom</option>
+                            </select>
+        </div>
+        </td>
+        </tr>
+        <tr class="tableel">
+            <td>User connected</td>
+            <td>
+                <select class="selector" style="margin-left: 20px;">
+                    <option>none</option>
+                    <option>sudo</option>
+                    <option>bell</option>
+                    <option>camera</option>
+                    <option>fun</option>
+                    <option>custom</option>
+                </select>
+    </div>
+    </td>
+    </tr>
+
+    <tr class="tableel">
+        <td>Task completed</td>
+        <td>
+            <select class="selector" style="margin-left: 20px;">
+                <option>none</option>
+                <option>sudo</option>
+                <option>bell</option>
+                <option>camera</option>
+                <option>fun</option>
+                <option>custom</option>
+            </select>
+</div>
+</td>
+</tr>
+</tbody>
+</table> -->
+        </div>
+
+
+
+
+        <!-- <div id="fontSelector">
+    <div for="fontFamily">Выберите шрифт:</div>
+    <select id="fontFamily" onchange="changeFont()">
+        <option value="Arial">Arial</option>
+        <option value="Helvetica">Helvetica</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Verdana">Verdana</option>
+    </select>
+</div> -->
+
+    </div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+<div class="popup" id="popupmail" style="display: none; height: 500px;">
+    <div class="pophead">
+        <div class="popname">
+            <b>Remove email</b>
+        </div>
+        <svg class="closebutton" onclick="$('.popup, .backblur').hide();" xmlns="http://www.w3.org/2000/svg" width="25"
+            height="25" fill="currentColor" viewBox="0 0 384 512">
+            <path
+                d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+            </path>
+        </svg>
+
+    </div>
+
+    <!--  -->
+
+    <div class="mailfirststep" style="margin-top: 2%;">
+        <center>
+            <input class="deftext" id="newmail" type="password" style="text-align:center; margin-bottom: 20px;" value=""
+                placeholder="Password">
+            <!-- <div id="myWidget"></div> -->
+            <div class="container2">
+                <div id="status" class="status" style="display: none;"></div>
+                <canvas id="canvas2" width="440" height="265"></canvas>
+                <div class="slider-container">
+                    <input type="range" id="rotationSlider" min="0" max="360" value="0" step="1">
+                </div>
+            </div>
+            <div class="button1" onclick="nextstepmail()" style="margin-top: 30px;">Remove</div>
+        </center>
+    </div>
+
+    <div class="mailsecondstep" style="display:none;">
+
+        <center>
+            <div style="margin-bottom: 10px;"><b>
+                    <h3>code sent to mail, check spam</h3>
+                </b></div>
+            <input class="deftext" id="delmailcode" type="text" style="text-align:center;" value=""
+                placeholder="Code from mail">
+        </center>
+        <center>
+            <div class="button1" onclick="delmail()" style="margin-top: 10px;">Confirm</div>
+        </center>
+    </div>
+
+</div>
+
+<div class="popup" id="popupsetmail" style="display: none; height: 550px;">
+    <div class="pophead">
+        <div class="popname">
+            <b>Set email</b>
+        </div>
+        <svg class="closebutton" onclick="$('.popup, .backblur').hide();" xmlns="http://www.w3.org/2000/svg" width="25"
+            height="25" fill="currentColor" viewBox="0 0 384 512">
+            <path
+                d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+            </path>
+        </svg>
+    </div>
+
+    <div class="setmailfirststep" style="">
+        <center>
+            <div><input class="deftext" id="setnewmail" type="text" style="text-align:center;" value=""
+                    placeholder="New mail"></div>
+            <div><input class="deftext" id="setpass" type="password" style="text-align:center;" value=""
+                    placeholder="Password"></div>
+            <!-- <div id="myWidget2"></div> -->
+            <div id="containerfotanipcha"></div>
+            <div class="button1" onclick="setmailcheck($('#newmail').val())" style="margin-top: 10px;">Confirm</div>
+        </center>
+    </div>
+
+    <div class="setmailsecondstep" style="display:none;">
+        <center>
+            <div id="newsetmailshow">New mail:</div>
+        </center>
+        <center><input class="deftext" id="codefromemail" type="text" style="text-align:center;" value=""
+                placeholder="Code from new mail">
+            <div class="button1" style="margin-top: 10px;" onclick="lasttepsetmail()">Confirm</div>
+        </center>
+    </div>
+
+</div>
+
+<div class="popup" id="popuppass" style="display: none;">
+    <div class="pophead">
+        <div class="popname">
+            <b>Change password</b>
+        </div>
+        <svg class="closebutton" onclick="$('.popup, .backblur').hide()" xmlns="http://www.w3.org/2000/svg" width="25"
+            height="25" fill="currentColor" viewBox="0 0 384 512">
+            <path
+                d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+            </path>
+        </svg>
+
+    </div>
+    <center><input class="deftext" id="oldpassinput" type="password" style="text-align:center; margin-top: 18%;"
+            value="" placeholder="Old password"></center>
+    <center><input class="deftext" id="newpassinput" type="password" style="text-align:center;" value=""
+            placeholder="New password"></center>
+    <center><input class="deftext" id="newpassinput2" type="password" style="text-align:center;" value=""
+            placeholder="New password again">
+        <div class="button1" style="margin-top: 10px;" onclick="changepass()">Confirm</div>
+    </center>
+</div>
+<div class="popup" id="popup2fa" style="display: none;">
+    <div class="pophead">
+        <div class="popname">
+            <b>Activate 2fa</b>
+        </div>
+        <svg class="closebutton" onclick="$('.popup, .backblur').hide();" xmlns="http://www.w3.org/2000/svg" width="25"
+            height="25" fill="currentColor" viewBox="0 0 384 512">
+            <path
+                d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+            </path>
+        </svg>
+    </div>
+    <div id="firststep" style="display: flex;justify-content: space-around; align-items: center;">
+        <div>
+            <div id="qrcode"></div>
+            <br>Secret code<br>
+            <div id="secret"></div>
+        </div>
+        <div style="margin-top: 10%">
+            <div style="
+                text-align: center;
+                width: 200px;
+                margin-bottom: 40px!important;
+                margin: auto;
+            ">Scan QR code via authenticator or import secret code</div>
+            <input class="deftext" id="2facheckpass" type="password" style="text-align:center; " value=""
+                placeholder="your password"><br>
+            <input class="deftext" id="2facheckcode" type="text" style="text-align:center; margin-top:10px;" value=""
+                placeholder="code">
+            <center>
+                <div class="button1" style="margin-top: 10px;" onclick="twofainit()">Confirm</div>
+            </center>
+        </div>
+    </div>
+    <div id="twofasecondstep" style="display: none;">
+        <center>
+            <div style="margin-top: 19%; font-size: 20px; "><b>PLZ SAVE THIS CODE</b></div>
+            <div>WRITE IT ON PAPER AND PUT IN THE SAFE BOX</div>
+            <div style="margin-top:20px;" id="recoverycode"></div>
+            <div class="button1" style="margin-top:20px;" onclick="$('.popup, .backblur').hide(); showsettinginfo();">I
+                saved this code</div>
+        </center>
+    </div>
+    <script src="lib/qrcode.min.js"></script>
+
+</div>
+<div class="popup" id="popup2faa" style="display: none;">
+    <div class="pophead">
+        <div class="popname">
+            <b>Delete 2fa</b>
+        </div>
+        <svg class="closebutton" onclick="$('.popup, .backblur').hide();" xmlns="http://www.w3.org/2000/svg" width="25"
+            height="25" fill="currentColor" viewBox="0 0 384 512">
+            <path
+                d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+            </path>
+        </svg>
+    </div>
+    <center>
+        <div style="margin-top: 20%;">
+            <input class="deftext" id="2facheckcodedel" type="text" style="text-align:center; " value=""
+                placeholder="Code">
+            <div class="button1" style="margin-top: 10px;" onclick="twofadel()">Delete 2fa</div>
+        </div>
+    </center>
+</div>
+
+<div class="popup" id="popupdel" style="display: none;">
+    <div class="pophead">
+        <div class="popname">
+            <b>Delete account</b>
+        </div>
+        <svg class="closebutton" onclick="$('.popup, .backblur').hide();" xmlns="http://www.w3.org/2000/svg" width="25"
+            height="25" fill="currentColor" viewBox="0 0 384 512">
+            <path
+                d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+            </path>
+        </svg>
+    </div>
+    <center>
+        <div style="margin-top: 10%; ">
+            <div style="color: red; font-family: fantasy;">
+                <h2>☠ Warning ☠</h2>
+            </div><br>
+            <div>
+                <h3>Access will be lost <b>forever</b>.</h3>
+            </div>
+            <div>
+                <h3>Username will remain unavailable for registration.</h3>
+            </div>
+            <div>
+                <h3>Mail and 2fa unlinking is required.</h3>
+            </div><br>
+            <input class="deftext" id="delpass" type="text" style="text-align:center; " value="" placeholder="Password">
+            <div class="button1" style="margin-top: 10px;" onclick="deleteacc()">Delete forever</div>
+        </div>
+    </center>
+</div>
+
+<div class="popup" id="popuplogout" style="display: none;">
+    <div class="pophead">
+        <div class="popname">
+            <b>Logout?</b>
+        </div>
+        <svg class="closebutton" onclick="$('.popup, .backblur').hide();" xmlns="http://www.w3.org/2000/svg" width="25"
+            height="25" fill="currentColor" viewBox="0 0 384 512">
+            <path
+                d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+            </path>
+        </svg>
+    </div>
+    <center>
+        <div style="margin-top: 20%;">
+            <div class="button1" onclick="logout();">Logout</div>
+            <div class="button1" style="margin-top: 10px;" onclick="endsessions();">End all sessions</div>
+        </div>
+    </center>
+
+
+
+</div>
+<script src="pages/settings.js"></script>
+<script>
+    // When the i18n dictionary finishes loading, refresh the account-info panel
+    // so that t("common.last_change") / t("settings.two_factor.enabled") etc. resolve
+    // even if showsettinginfo() was called before the dict loaded. Also style the
+    // language selector with the same customSelect plugin used for #wsservers.
+    (function () {
+        function refresh() {
+            if (typeof showsettinginfo === 'function') showsettinginfo();
+            var $sel = (window.jQuery || window.$) && $('#langSelector');
+            if ($sel && $sel.length && $.fn.customSelect && !$sel.data('custom-select')) {
+                $sel.customSelect({
+                    modifier: 'custom-select--dark',
+                    includeValue: true
+                });
+            }
+        }
+        document.addEventListener('i18n:ready', refresh);
+        if (window.i18nReady && window.i18nReady.promise) {
+            window.i18nReady.promise.then(refresh);
+        }
+    })();
+</script>
+</body>
+
+</html>

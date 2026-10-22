@@ -1,0 +1,3 @@
+.comtag { cursor: pointer; padding: 6px 10px; margin: 2px; border-radius: 3px; background: rgba(48, 48, 48, 0.365); border: 1px color-mix(in srgb, var(--color1), transparent 70%) solid; color: rgb(221, 221, 221); transition: box-shadow 0.2s, border-color 0.2s, color 0.2s; display: inline-block; }
+.comtag:hover { border-color: color-mix(in srgb, var(--color1), transparent 40%); box-shadow: inset 0 0 10px color-mix(in srgb, var(--color1), transparent 65%); color: rgb(255, 255, 255); }
+.comtag-active { background: rgba(48, 48, 48, 0.5) !important; border-color: color-mix(in srgb, var(--color1), transparent 30%) !important; box-shadow: inset 0 0 12px color-mix(in srgb, var(--color1), transparent 55%) !important; color: rgb(255, 255, 255) !important; }

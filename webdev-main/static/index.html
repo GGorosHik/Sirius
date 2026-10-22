@@ -1,0 +1,525 @@
+    <script>
+        window.loadt = Date.now();
+    </script>
+
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head webrat>
+    <meta charset="UTF-8">
+    <title>WEB_RAT</title>
+    <meta name="language" content="Russian">
+    <meta http-equiv="origin-trial" content="ru">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/jquery-ui.js"></script>
+    <script src="./lib/jquery.custom-select.min.js"></script>
+    <link href="./lib/jquery.custom-select.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/reset.min.css">
+    <link rel="stylesheet" href="lib/normalize.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="pages/base64.min.js"></script>
+    <script src="enum.js"></script>
+    <script src="page.js"></script>
+    <script src="locales/i18n.js"></script>
+    <script src="locales/en.js"></script>
+    <script src="babka.js"></script>
+    <script>
+        ! function(e, t) {
+            "object" == typeof exports && "undefined" != typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define(t) : (e = "undefined" != typeof globalThis ? globalThis : e || self, function() {
+                var n = e.Cookies,
+                    o = e.Cookies = t();
+                o.noConflict = function() {
+                    return e.Cookies = n, o
+                }
+            }())
+        }(this, (function() {
+            "use strict";
+
+            function e(e) {
+                for (var t = 1; t < arguments.length; t++) {
+                    var n = arguments[t];
+                    for (var o in n) e[o] = n[o]
+                }
+                return e
+            }
+            var t = function t(n, o) {
+                function r(t, r, i) {
+                    if ("undefined" != typeof document) {
+                        "number" == typeof(i = e({}, o, i)).expires && (i.expires = new Date(Date.now() + 864e5 * i.expires)), i.expires && (i.expires = i.expires.toUTCString()), t = encodeURIComponent(t).replace(/%(2[346B]|5E|60|7C)/g, decodeURIComponent).replace(/[()]/g, escape);
+                        var c = "";
+                        for (var u in i) i[u] && (c += "; " + u, !0 !== i[u] && (c += "=" + i[u].split(";")[0]));
+                        return document.cookie = t + "=" + n.write(r, t) + c
+                    }
+                }
+                return Object.create({
+                    set: r,
+                    get: function(e) {
+                        if ("undefined" != typeof document && (!arguments.length || e)) {
+                            for (var t = document.cookie ? document.cookie.split("; ") : [], o = {}, r = 0; r < t.length; r++) {
+                                var i = t[r].split("="),
+                                    c = i.slice(1).join("=");
+                                try {
+                                    var u = decodeURIComponent(i[0]);
+                                    if (o[u] = n.read(c, u), e === u) break
+                                } catch (e) {}
+                            }
+                            return e ? o[e] : o
+                        }
+                    },
+                    remove: function(t, n) {
+                        r(t, "", e({}, n, {
+                            expires: -1
+                        }))
+                    },
+                    withAttributes: function(n) {
+                        return t(this.converter, e({}, this.attributes, n))
+                    },
+                    withConverter: function(n) {
+                        return t(e({}, this.converter, n), this.attributes)
+                    }
+                }, {
+                    attributes: {
+                        value: Object.freeze(o)
+                    },
+                    converter: {
+                        value: Object.freeze(n)
+                    }
+                })
+            }({
+                read: function(e) {
+                    return '"' === e[0] && (e = e.slice(1, -1)), e.replace(/(%[\dA-F]{2})+/gi, decodeURIComponent)
+                },
+                write: function(e) {
+                    return encodeURIComponent(e).replace(/%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g, decodeURIComponent)
+                }
+            }, {
+                path: "/"
+            });
+            return t
+        }));
+
+        $(document).ready(function() {
+            $(":root").get(0).style.setProperty("--color1", Cookies.get("maincolor"));
+
+
+        });
+    </script>
+    <script src='lib/Sortable.min.js'></script>
+    <style id="customcss">
+        .row-fadeIn-wrapper:hover {
+            height: 25vh;
+        }
+    </style>
+
+    <script>
+        $(document).ready(() => {
+            
+            //if ((Date.now() - window.loadt < 1000)||window.loadt == null) {
+            page = window.location.href.split("#")[1]
+
+            switch (page) {
+                case 'builder':
+                    loadpage("index.php?target=builder");
+                    window.loadtarget = 'builder';
+                    break;
+                case 'friends':
+                    loadpage("index.php?target=friends");
+                    window.loadtarget = 'friends';
+                    break;
+                case 'scripts':
+                    loadpage("index.php?target=scripts");
+                    window.loadtarget = 'scripts';
+                    break;
+                case 'notify':
+                    loadpage("index.php?target=notify");
+                    window.loadtarget = 'notify';
+                    break;
+                case 'perfomance':
+                    loadpage("index.php?target=perfomance");
+                    window.loadtarget = 'perfomance';
+                    break;
+                case 'subs':
+                    loadpage("index.php?target=subs");
+                    window.loadtarget = 'subs';
+                    break;
+                case 'community':
+                    loadpage("index.php?target=community");
+                    window.loadtarget = 'community';
+                    break;
+                case 'settings':
+                    loadpage("index.php?target=settings");
+                    window.loadtarget = 'settings';
+                    break;
+                default:
+                    loadpage("index.php?target=panel");
+                    window.loadtarget = 'panel';
+                    break;
+            }
+            $('.lefblock'+window.loadtarget).addClass('lefeactive');
+            //} else {
+            //console.log("no time",window.loadt,Date.now());
+            //}
+        });
+
+        function loadpage(uri) {
+            console.log("%c[WEBRAT-UI] Loading target page:", "color:#ff00ea; font-weight:bold;", uri);
+
+            document.body.classList.remove('stats-open');
+            $('#statswindow').removeClass('open').hide();
+            $('#statsBtn').removeClass('active');
+
+            $(".wrapper").eq(0).load(uri, function(data, status, xhr) {
+                if (status === "error") {
+                    console.error("%c[WEBRAT-UI] Error loading page:", "color:red;", uri, xhr.status, xhr.statusText);
+                    return;
+                }
+                console.log("%c[WEBRAT-UI] Successfully loaded page:", "color:#00ffca;", uri);
+                
+                // Re-apply translations for dynamic content
+                if (typeof window.applyTranslations === 'function') {
+                    window.applyTranslations();
+                }
+                document.dispatchEvent(new Event('i18n:ready'));
+
+                // Open builder form automatically when builder tab is selected
+                if (uri.indexOf('builder') !== -1 && typeof showbuilderwindow === 'function') {
+                    showbuilderwindow();
+                }
+
+                // Load user settings info automatically when settings tab is selected
+                if (uri.indexOf('settings') !== -1) {
+                    // settings.js loads async — retry until the function is defined
+                    var _tries = 0;
+                    var _waitSettings = setInterval(function() {
+                        _tries++;
+                        if (typeof showsettinginfo === 'function') {
+                            clearInterval(_waitSettings);
+                            showsettinginfo();
+                        } else if (_tries > 20) {
+                            clearInterval(_waitSettings);
+                            console.warn('[WEBRAT-UI] showsettinginfo not found after 1s');
+                        }
+                    }, 50);
+                }
+
+                if (Date.now() - window.loadt > 1000) {
+                    window.history.pushState("", "WEBRAT: " + uri.replace("index.php?target=", ""), "#" + uri.replace("index.php?target=", ""));
+                }
+            });
+            $('#tableCanvas').off();
+        }
+
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+            }
+            return null;
+        }
+
+        function init() {
+            if (readCookie('theme') == 1) {
+                document.documentElement.setAttribute("theme", "dark");
+            } else {
+                document.documentElement.removeAttribute("theme");
+            }
+        }
+    </script>
+
+</head>
+
+<body webrat id="body" onload="init();" style="background-size: cover;">
+    <webrat></webrat>
+    <!-- partial:index.partial.html -->
+    <audio id="sound" src="sound2.wav" volume="0.5" preload="auto"></audio>
+    <div class="lefbackblur" style="display: none;"></div>
+    <div style="display:flex;">
+        <div class="lefeder">
+            <div style="width: 40px;">
+                <!-- <img class="" type="image/svg+xml" src="image/logo-1.2.3.svg" width="30" height="30" style="margin-top: 1vh; margin-bottom: 1vh;" title="logo"></img> -->
+                <div class="lefebox" style="">
+                    <div style="display: flex; width: 130px; ">
+                        <svg class="lefeitems"
+                            onclick='loadpage("index.php?target=panel"); notification("red","warning","dont touch this icon")'
+                            fill="currentColor" version="1.0" xmlns="http://www.w3.org/2000/svg" width="4773.000000pt"
+                            height="4583.000000pt" viewBox="0 0 4773.000000 4583.000000" preserveAspectRatio="xMidYMid meet">
+                            <g transform="translate(0.000000,4583.000000) scale(0.100000,-0.100000)">
+                                <path
+                                    d="M14071 43830 c-814 -11 -823 -11 -1081 -71 -118 -28 -222 -52 -230 -55 -9 -2 -72 -45 -140 -94 -118 -85 -130 -97 -218 -217 -51 -70 -97 -144 -102 -163 -36 -135 -104 -445 -120 -545 -56 -348 -206 -1637 -340 -2915 -168 -1609 -393 -3647 -404 -3657 -8 -9 -53 -9 -4331 -23 -1669 -6 -3034 -14 -3145 -20 -183 -9 -208 -13 -428 -65 -129 -30 -243 -60 -255 -67 -12 -6 -73 -48 -135 -94 -107 -77 -120 -91 -210 -215 l-96 -133 -63 -265 c-71 -299 -97 -456 -148 -881 -140 -1161 -412 -3356 -734 -5905 -103 -809 -131 -1073 -131 -1213 0 -85 8 -132 54 -326 51 -217 56 -230 100 -294 122 -176 148 -203 279 -298 l128 -93 172 -41 c297 -71 344 -79 563 -91 140 -7 1354 -14 3679 -19 1909 -4 3471 -8 3473 -9 10 -5 5 -49 -362 -3321 -102 -905 -193 -1717 -202 -1805 -10 -88 -21 -169 -25 -181 -7 -21 -11 -21 -591 -27 -320 -4 -2058 -12 -3861 -18 l-3278 -10 -212 -50 c-229 -54 -222 -51 -384 -171 -90 -66 -127 -108 -253 -287 -16 -23 -39 -97 -72 -235 l-48 -201 -209 -1835 c-116 -1009 -233 -2035 -260 -2280 -28 -245 -87 -769 -131 -1165 -45 -396 -86 -765 -92 -820 -6 -55 -59 -534 -119 -1065 l-109 -965 50 -215 c47 -198 54 -220 92 -275 124 -178 144 -200 265 -287 65 -46 123 -87 129 -91 6 -3 107 -29 225 -57 l214 -51 640 0 c650 0 2354 12 5195 35 866 8 1579 11 1583 9 5 -3 6 -31 3 -62 -45 -410 -120 -1086 -176 -1576 -83 -722 -120 -1072 -235 -2175 -115 -1103 -175 -1660 -235 -2170 -73 -617 -72 -564 -11 -818 28 -117 54 -218 58 -225 3 -7 45 -66 92 -131 74 -103 99 -129 176 -186 188 -138 159 -125 414 -185 129 -31 278 -60 330 -66 215 -22 1268 -28 4922 -29 l3836 0 213 50 c117 28 218 54 224 57 6 4 64 45 129 91 121 87 138 105 265 287 39 55 46 77 92 268 70 293 63 236 325 2652 253 2331 458 4151 468 4162 9 8 370 14 1362 22 2633 22 4344 43 4733 57 l172 6 0 -33 c0 -19 -25 -263 -55 -544 -30 -280 -73 -685 -95 -900 -23 -214 -70 -646 -105 -960 -35 -313 -96 -849 -134 -1190 -38 -341 -93 -838 -121 -1105 -66 -627 -141 -1307 -181 -1635 l-32 -260 51 -212 51 -213 93 -129 c86 -119 101 -135 203 -209 61 -44 126 -89 145 -100 42 -24 443 -119 560 -132 47 -6 315 -15 595 -20 604 -11 6442 -12 7485 0 l725 7 214 52 c118 29 219 55 225 58 6 4 64 45 129 91 121 87 141 109 265 287 38 55 45 77 91 273 28 117 55 261 61 320 63 628 347 3201 666 6047 21 182 42 336 47 343 7 9 626 12 3031 12 2928 0 4196 9 4496 30 117 8 190 21 373 64 251 59 240 54 432 198 66 51 170 177 240 293 25 43 121 432 155 630 11 61 58 470 105 910 47 440 119 1108 161 1485 326 2986 530 4931 555 5300 l12 175 -53 225 c-29 124 -57 234 -63 245 -5 10 -48 71 -94 135 -77 107 -92 122 -210 207 -70 51 -134 95 -142 98 -95 28 -466 108 -537 115 -219 23 -1246 32 -4119 39 -3032 6 -3040 6 -3038 26 2 22 39 363 133 1221 33 304 83 769 110 1035 283 2725 317 3045 325 3060 4 5 1220 9 3118 9 2980 0 4152 8 4430 30 106 8 433 73 577 115 8 3 74 47 145 98 125 90 132 97 222 222 52 72 98 146 103 165 43 164 114 495 135 624 55 352 188 1477 355 2996 200 1822 261 2367 297 2635 l37 280 3 915 4 914 -42 181 -42 180 -91 128 c-88 125 -95 131 -221 221 l-130 93 -220 52 -220 51 -3671 0 c-2925 0 -3674 3 -3681 13 -11 13 -6 64 53 552 75 619 120 1038 274 2520 55 534 148 1420 205 1971 125 1199 153 1488 161 1659 l6 130 -51 215 c-47 198 -55 220 -93 275 -128 183 -145 202 -275 297 l-128 92 -245 58 c-229 54 -257 59 -435 68 -313 18 -2755 22 -5720 11 l-2790 -10 -208 -50 c-114 -28 -213 -54 -220 -58 -7 -3 -65 -44 -129 -91 -112 -80 -122 -90 -211 -215 l-94 -132 -56 -240 c-64 -275 -87 -396 -121 -655 -36 -266 -170 -1338 -281 -2255 -114 -935 -394 -3199 -463 -3743 -27 -211 -54 -388 -61 -395 -8 -8 -866 -12 -3161 -15 -2859 -4 -3150 -3 -3150 11 0 17 140 1167 394 3232 313 2541 396 3275 396 3492 0 75 -43 290 -100 503 -5 19 -51 93 -102 163 -88 120 -100 132 -216 216 -68 49 -136 94 -150 100 -61 24 -474 114 -562 122 -52 5 -286 14 -520 19 -479 11 -6424 11 -7289 0z m6522 -2276 c10 -3 17 -17 17 -30 0 -12 -79 -666 -175 -1451 -492 -4007 -580 -4747 -606 -5108 l-11 -160 56 -239 c31 -131 60 -244 63 -250 3 -6 49 -70 101 -142 92 -128 98 -134 228 -228 l133 -97 249 -59 c201 -48 277 -61 393 -70 531 -39 7666 -39 8368 0 170 9 204 15 420 66 255 60 248 57 409 176 90 66 157 144 256 294 39 60 126 438 170 739 121 826 652 4960 812 6320 15 127 32 236 37 243 7 9 641 12 3109 12 2717 0 3099 -2 3104 -15 3 -8 1 -61 -5 -117 -6 -57 -68 -634 -137 -1283 -68 -649 -192 -1812 -275 -2585 -207 -1940 -245 -2329 -264 -2700 l-7 -125 56 -233 55 -233 77 -107 c43 -59 87 -118 98 -131 33 -37 256 -193 295 -207 20 -6 135 -35 256 -63 211 -48 229 -51 450 -62 161 -8 1268 -14 3692 -18 1904 -3 3465 -9 3469 -13 4 -4 -16 -207 -45 -450 -28 -244 -69 -612 -91 -818 -108 -1013 -442 -4008 -450 -4026 l-8 -21 -2629 -7 c-2706 -7 -4316 -19 -4788 -36 l-270 -10 -229 -54 c-214 -51 -232 -57 -290 -97 -188 -132 -201 -144 -299 -281 -53 -73 -100 -146 -106 -161 -6 -15 -40 -152 -75 -305 l-65 -277 -51 -510 c-62 -627 -221 -2152 -295 -2840 -30 -280 -96 -892 -146 -1360 -56 -521 -96 -853 -103 -858 -14 -11 -6407 0 -6418 11 -3 4 0 59 8 122 7 63 70 567 139 1120 68 553 174 1392 235 1865 220 1715 277 2197 287 2445 l6 145 -53 225 c-29 124 -57 234 -63 245 -5 11 -48 73 -95 138 -79 110 -93 123 -211 209 l-126 92 -220 53 c-262 63 -316 69 -815 83 -1170 32 -6271 39 -7495 11 -661 -16 -697 -19 -960 -81 -120 -28 -228 -56 -239 -62 -11 -6 -73 -49 -137 -95 -107 -78 -123 -94 -200 -200 -46 -64 -90 -126 -96 -139 -16 -29 -129 -507 -148 -627 -20 -130 -40 -291 -80 -677 -47 -452 -153 -1394 -225 -2010 -33 -278 -90 -782 -125 -1120 -87 -823 -161 -1499 -250 -2300 -90 -803 -123 -1148 -131 -1340 l-6 -145 56 -240 c62 -262 50 -235 187 -422 60 -81 82 -102 201 -186 l133 -95 240 -56 c186 -43 273 -58 380 -66 233 -18 1821 -29 4047 -30 1159 0 2109 -3 2111 -7 3 -5 -17 -210 -44 -458 -27 -247 -100 -936 -164 -1530 -202 -1895 -376 -3449 -388 -3461 -14 -14 -1098 -28 -3242 -44 -2056 -15 -3155 -33 -3375 -56 -30 -3 -163 -30 -295 -60 -260 -60 -251 -56 -412 -176 -74 -54 -108 -88 -165 -166 -120 -162 -121 -163 -183 -432 -98 -423 -104 -467 -505 -4089 -165 -1493 -304 -2719 -310 -2725 -13 -13 -6298 -22 -6311 -9 -6 6 13 228 56 629 139 1306 403 3742 530 4894 86 775 105 959 105 1043 0 59 -101 520 -123 562 -5 10 -51 75 -100 143 -92 127 -112 145 -317 290 -63 44 -457 137 -657 155 -171 15 -2094 14 -4438 -2 -891 -5 -1863 -12 -2160 -13 l-540 -3 -3 30 c-3 35 574 5334 593 5452 l6 33 2157 0 c2330 0 5042 15 5372 29 198 9 213 11 413 60 l208 50 107 77 c59 43 117 87 130 98 30 27 189 246 201 277 4 13 31 123 59 244 64 273 84 437 326 2570 473 4169 576 5132 576 5375 0 43 -18 141 -54 294 -51 215 -57 233 -97 290 -131 186 -146 203 -266 289 -65 46 -127 89 -138 95 -42 21 -463 114 -560 123 -232 21 -1206 29 -4173 36 -1729 3 -3145 9 -3147 12 -2 4 5 74 15 156 11 83 76 593 145 1135 68 542 179 1424 245 1960 66 536 154 1249 195 1583 41 335 77 613 81 618 3 5 1277 9 3162 9 3037 0 4144 8 4412 30 87 8 192 27 348 64 211 50 226 55 290 99 174 121 204 149 296 276 l89 123 54 227 c30 124 65 296 78 381 71 449 297 2401 455 3915 96 922 282 2588 292 2614 l9 24 3128 -6 c1720 -4 3135 -9 3144 -13z m6817 -15505 c0 -5 -31 -255 -70 -556 -38 -302 -117 -930 -175 -1398 -222 -1786 -276 -2223 -329 -2625 -89 -680 -100 -752 -111 -764 -8 -8 -51 -9 -146 -4 -74 4 -1466 11 -3094 15 -1628 5 -2965 11 -2971 15 -7 5 63 663 217 2055 125 1126 256 2317 292 2646 35 329 68 602 74 608 9 9 6270 30 6301 21 6 -2 12 -8 12 -13z" />
+                            </g>
+                        </svg>
+                        <div class="nameslefeder" style="padding-left: 18px; padding-top: 13px;"><i18n>sidebar.brand</i18n></div>
+                    </div>
+                </div>
+                <div style="margin-left: -10px; width: 160px; border-bottom: 1px #797979 solid;"></div>
+                <!-- <div style="border: 1px #797979 solid; margin-left: -10px; margin-bottom: 5px;"></div> -->
+
+                <!-- <img class="lefeitems" type="image/svg+xml" src="image/user.svg" onclick='loadpage("index.php?target=profile");' width="30" height="30" style="" ></img> -->
+                <div style="display: flex; width: 150px; padding-top: 3px;" class="lefeblock lefblockpanel" onclick='loadpage("index.php?target=panel");'>
+                    <svg class="lefeitems" style="margin-left: 2px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" i18n-attr="title:sidebar.user_list">
+                        <!-- <title>User list</title> -->
+                        <path
+                            d="M0 80c0-8.8 7.2-16 16-16H432c8.8 0 16 7.2 16 16s-7.2 16-16 16H16C7.2 96 0 88.8 0 80zM0 240c0-8.8 7.2-16 16-16H432c8.8 0 16 7.2 16 16s-7.2 16-16 16H16c-8.8 0-16-7.2-16-16zM448 400c0 8.8-7.2 16-16 16H16c-8.8 0-16-7.2-16-16s7.2-16 16-16H432c8.8 0 16 7.2 16 16z" />
+                    </svg>
+                    <div class="nameslefeder" onclick='loadpage("index.php?target=panel");' style="padding-top: 13px;"><i18n>sidebar.user_list</i18n></div>
+                </div>
+                <div style="display: flex; width: 150px;" class="lefeblock lefblockbuilder" onclick='loadpage("index.php?target=builder");' id="">
+                    <svg class="lefeitems" xmlns="http://www.w3.org/2000/svg" style="margin-left: 4px;" viewBox="0 0 512 512" fill="currentColor" i18n-attr="title:sidebar.builder">
+                        <!-- <title>Builder</title> -->
+                        <path
+                            d="M320 480H64c-17.7 0-32-14.3-32-32V64c0-17.7 14.3-32 32-32H192V144c0 26.5 21.5 48 48 48H352V448c0 17.7-14.3 32-32 32zM240 160c-8.8 0-16-7.2-16-16V32.5c2.8 .7 5.4 2.1 7.4 4.2L347.3 152.6c2.1 2.1 3.5 4.6 4.2 7.4H240zM64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V163.9c0-12.7-5.1-24.9-14.1-33.9L254.1 14.1c-9-9-21.2-14.1-33.9-14.1H64zM176 416c0 8.8 7.2 16 16 16s16-7.2 16-16V352h64c8.8 0 16-7.2 16-16s-7.2-16-16-16H208V256c0-8.8-7.2-16-16-16s-16 7.2-16 16v64H112c-8.8 0-16 7.2-16 16s7.2 16 16 16h64v64z" />
+                    </svg>
+                    <div class="nameslefeder" onclick='loadpage("index.php?target=builder");' style="padding-left: 13px;"><i18n>sidebar.builder</i18n></div>
+                </div>
+                <div style="display: flex; width: 150px;" class="lefeblock lefblocknotify" onclick='loadpage("index.php?target=notify");' data-tab="notify" id="">
+                    <svg class="lefeitems"  xmlns="http://www.w3.org/2000/svg" style="margin-left: 2px;" viewBox="0 0 512 512" fill="currentColor" i18n-attr="title:sidebar.notifications">
+                        <!-- <title>Notification settings</title> -->
+                        <path
+                            d="M208 16c0-8.8 7.2-16 16-16s16 7.2 16 16l0 16.8c80.9 8 144 76.2 144 159.2l0 29.1c0 43.7 17.4 85.6 48.3 116.6l2.8 2.8c8.3 8.3 13 19.6 13 31.3c0 24.5-19.8 44.3-44.3 44.3L44.3 416C19.8 416 0 396.2 0 371.7c0-11.7 4.7-23 13-31.3l2.8-2.8C46.6 306.7 64 264.8 64 221.1L64 192c0-83 63.1-151.2 144-159.2L208 16zm16 48C153.3 64 96 121.3 96 192l0 29.1c0 52.2-20.7 102.3-57.7 139.2L35.6 363c-2.3 2.3-3.6 5.4-3.6 8.7c0 6.8 5.5 12.3 12.3 12.3l359.4 0c6.8 0 12.3-5.5 12.3-12.3c0-3.3-1.3-6.4-3.6-8.7l-2.8-2.8c-36.9-36.9-57.7-87-57.7-139.2l0-29.1c0-70.7-57.3-128-128-128zM193.8 458.7c4.4 12.4 16.3 21.3 30.2 21.3s25.8-8.9 30.2-21.3c2.9-8.3 12.1-12.7 20.4-9.8s12.7 12.1 9.8 20.4C275.6 494.2 251.9 512 224 512s-51.6-17.8-60.4-42.7c-2.9-8.3 1.4-17.5 9.8-20.4s17.5 1.4 20.4 9.8z" />
+                    </svg>
+                    <div class="nameslefeder" onclick='loadpage("index.php?target=notify");'><i18n>sidebar.notifications</i18n></div>
+                </div>
+
+                <!-- <svg class="lefeitems" onclick='loadpage("index.php?target=scripts");' xmlns="http://www.w3.org/2000/svg"
+                style="margin-left: 4px;" viewBox="0 0 512 512" fill="currentColor" title="scripts">
+                <title>Scripts manager</title>
+                <path
+                    d="M320 480L64 480c-17.7 0-32-14.3-32-32L32 64c0-17.7 14.3-32 32-32l128 0 0 112c0 26.5 21.5 48 48 48l112 0 0 256c0 17.7-14.3 32-32 32zM240 160c-8.8 0-16-7.2-16-16l0-111.5c2.8 .7 5.4 2.1 7.4 4.2L347.3 152.6c2.1 2.1 3.5 4.6 4.2 7.4L240 160zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-284.1c0-12.7-5.1-24.9-14.1-33.9L254.1 14.1c-9-9-21.2-14.1-33.9-14.1L64 0zm91.3 299.3c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0l-48 48c-6.2 6.2-6.2 16.4 0 22.6l48 48c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L118.6 336l36.7-36.7zm144 25.4l-48-48c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L265.4 336l-36.7 36.7c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l48-48c6.2-6.2 6.2-16.4 0-22.6z" />
+            </svg> -->
+                <!-- <svg class="lefeitems" onclick='loadpage("index.php?target=friends");' xmlns="http://www.w3.org/2000/svg"
+                style="height:28px; width: 45px; margin-left: -11px;" viewBox="0 0 512 512" fill="currentColor"
+                title="social">
+                <path
+                    d="M96 80a48 48 0 1 1 96 0A48 48 0 1 1 96 80zm128 0A80 80 0 1 0 64 80a80 80 0 1 0 160 0zm96 80a64 64 0 1 1 0 128 64 64 0 1 1 0-128zm0 160a96 96 0 1 0 0-192 96 96 0 1 0 0 192zm-58.7 64H378.7c54.2 0 98.4 42.5 101.2 96H160.1c2.8-53.5 47-96 101.2-96zm0-32C187.7 352 128 411.7 128 485.3c0 14.7 11.9 26.7 26.7 26.7H485.3c14.7 0 26.7-11.9 26.7-26.7C512 411.7 452.3 352 378.7 352H261.3zM512 32a48 48 0 1 1 0 96 48 48 0 1 1 0-96zm0 128A80 80 0 1 0 512 0a80 80 0 1 0 0 160zm16 64c44.2 0 80 35.8 80 80c0 8.8 7.2 16 16 16s16-7.2 16-16c0-61.9-50.1-112-112-112H444c2.6 10.2 4 21 4 32h80zm-336 0c0-11 1.4-21.8 4-32H112C50.1 192 0 242.1 0 304c0 8.8 7.2 16 16 16s16-7.2 16-16c0-44.2 35.8-80 80-80h80z" />
+            </svg> -->
+                <!-- <svg class="lefeitems" style="margin-left:-10px;height:28px; width: 45px;"
+                onclick='loadpage("index.php?target=perfomance");'
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" title="perfomance">
+                <path
+                    d="M511.3 208H336V32.7c93.3 7.7 167.6 82.1 175.3 175.3zM320 240H528.5c8.4 0 15.4-6.5 15.5-14.9l0-1.1C544 100.3 443.7 0 320 0l-1.1 0C310.5 0 304 7.1 304 15.5V224c0 8.8 7.2 16 16 16zm-86.6 70.6L375.3 452.6C344.9 470 309.6 480 272 480C157.1 480 64 386.9 64 272c0-98.3 68.3-180.8 160-202.4V288c0 8.5 3.4 16.6 9.4 22.6zM239 34.3C122.1 50.3 32 150.7 32 272c0 132.5 107.5 240 240 240c51.8 0 99.8-16.4 139-44.3c7.7-5.5 8.2-16.5 1.5-23.1L256 288V49.6c0-9.2-7.8-16.6-17-15.4zM489.6 412.3L397.3 320H538.4c-8.3 35-25.4 66.6-48.9 92.3zM573.8 305c1.3-9.2-6.1-17-15.4-17H358.6c-14.3 0-21.4 17.2-11.3 27.3L478.7 446.7c5.8 5.8 15.2 6.3 21.2 .7c39.3-36.7 66.2-86.5 73.9-142.3z" />
+            </svg> -->
+                <div style="display: flex; width: 150px;" class="lefeblock lefblockcommunity" id="" onclick='loadpage("index.php?target=community"); $("#notification-circle").hide();'>
+                    <svg class="lefeitems" xmlns="http://www.w3.org/2000/svg" style="margin-left: 2px; height: 30px; width: 23px; margin-bottom: 0.6vh;" viewBox="0 0 512 512"
+                        fill="currentColor" i18n-attr="title:sidebar.forum">
+                        <!-- <title>Community</title> -->
+                        <path
+                            d="M192 416c0-17.7-14.3-32-32-32l-96 0c-17.7 0-32-14.3-32-32L32 64c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32l0 288c0 17.7-14.3 32-32 32l-138.7 0c-6.9 0-13.7 2.2-19.2 6.4L192 464l0-48zM64 0C28.7 0 0 28.7 0 64L0 352c0 35.3 28.7 64 64 64l64 0 32 0 0 32 0 48c0 6.1 3.4 11.6 8.8 14.3s11.9 2.1 16.8-1.5L309.3 416 448 416c35.3 0 64-28.7 64-64l0-288c0-35.3-28.7-64-64-64L64 0zm80 144c-8.8 0-16 7.2-16 16s7.2 16 16 16l224 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-224 0zm0 96c-8.8 0-16 7.2-16 16s7.2 16 16 16l128 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-128 0z" />
+                        <circle style="display: none; filter:invert(100%);" id="notification-circle" cx="400" cy="80" r="105" stroke="cyan" stroke-width="10" fill="currentColor" />
+                    </svg>
+                    <div class="nameslefeder" onclick='loadpage("index.php?target=community"); $("#notification-circle").hide(); ' style="padding-top: 16px; padding-left: 17px;"><i18n>sidebar.forum</i18n></div>
+                </div>
+
+                <div style="display: flex; width: 150px;" class="lefeblock lefblocksubs" id="" onclick='loadpage("index.php?target=subs");'>
+                    <svg class="lefeitems" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor" i18n-attr="title:sidebar.licenses">
+                        <!-- <title>Subscription management</title> -->
+                        <path
+                            d="M16 0C7.2 0 0 7.2 0 16s7.2 16 16 16l37.9 0c7.6 0 14.2 5.3 15.7 12.8l58.9 288c6.1 29.8 32.3 51.2 62.7 51.2L496 384c8.8 0 16-7.2 16-16s-7.2-16-16-16l-304.8 0c-15.2 0-28.3-10.7-31.4-25.6L152 288l314.6 0c29.4 0 55-20 62.1-48.5L570.6 71.8c5-20.2-10.2-39.8-31-39.8L99.1 32C92.5 13 74.4 0 53.9 0L16 0zm90.1 64l433.4 0L497.6 231.8C494 246 481.2 256 466.5 256l-321.1 0L106.1 64zM168 456a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm80 0a56 56 0 1 0 -112 0 56 56 0 1 0 112 0zm200-24a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm0 80a56 56 0 1 0 0-112 56 56 0 1 0 0 112z" />
+                    </svg>
+                    <div class="nameslefeder" onclick='loadpage("index.php?target=subs");' style="padding-left: 17px;"><i18n>sidebar.licenses</i18n></div>
+                </div>
+                <div style="display: flex; width: 150px;" class="lefeblock lefblocksettings" id="" onclick='loadpage("index.php?target=settings");'>
+                <svg class="lefeitems" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" i18n-attr="title:sidebar.settings">
+                    <!-- <title>Settings</title> -->
+                    <path
+                        d="M223.3 37.8c.4-1.5 1.3-2.8 2.4-3.8c9.9-1.3 20-2 30.3-2s20.4 .7 30.3 2c1.1 1 1.9 2.3 2.4 3.8l13.7 47.7c3.5 12.1 12.2 21.1 22.5 26.1c7.6 3.6 14.8 7.8 21.7 12.5c9.4 6.5 21.7 9.5 33.9 6.5l48.2-12c1.5-.4 3-.3 4.4 .2c5.4 6.9 10.4 14.2 14.9 21.8l4.3 7.4c4.2 7.5 7.9 15.3 11.2 23.3c-.3 1.5-1 2.9-2.1 4L426.8 211c-8.7 9-12.2 21.1-11.3 32.5c.3 4.1 .5 8.3 .5 12.5s-.2 8.4-.5 12.5c-.9 11.4 2.6 23.5 11.3 32.5l34.5 35.7c1.1 1.1 1.8 2.5 2.1 4c-3.3 8-7 15.8-11.2 23.4l-4.2 7.3c-4.6 7.6-9.6 14.8-14.9 21.8c-1.4 .5-2.9 .5-4.4 .2l-48.2-12c-12.2-3-24.4 0-33.9 6.5c-6.9 4.7-14.1 8.9-21.7 12.5c-10.3 4.9-19.1 14-22.5 26.1l-13.7 47.7c-.4 1.5-1.3 2.8-2.4 3.8c-9.9 1.3-20 2-30.3 2s-20.4-.7-30.3-2c-1.1-1-1.9-2.3-2.4-3.8l-13.7-47.7c-3.5-12.1-12.2-21.1-22.5-26.1c-7.6-3.6-14.8-7.8-21.7-12.5c-9.4-6.5-21.7-9.5-33.9-6.5l-48.2 12c-1.5 .4-3 .3-4.4-.2c-5.4-7-10.4-14.2-15-21.8l-4.2-7.3c-4.2-7.5-7.9-15.3-11.2-23.4c.3-1.5 1-2.9 2.1-4L85.2 301c8.7-9 12.2-21.1 11.3-32.5c-.3-4.1-.5-8.3-.5-12.5s.2-8.4 .5-12.5c.9-11.4-2.6-23.5-11.3-32.5L50.7 175.2c-1.1-1.1-1.8-2.5-2.1-4c3.3-8 7-15.8 11.2-23.4l4.2-7.3c4.6-7.6 9.6-14.8 15-21.8c1.4-.5 2.9-.5 4.4-.2l48.2 12c12.2 3 24.4 0 33.9-6.5c6.9-4.7 14.1-8.9 21.7-12.5c10.3-4.9 19.1-14 22.5-26.1l13.7-47.7zM256 0c-13 0-25.9 1-38.4 2.9c-1.7 .3-3.4 .8-5 1.6c-9.5 4.9-16.9 13.6-20 24.5L178.9 76.7c-.6 2.2-2.5 4.5-5.6 6c-9.1 4.3-17.8 9.4-26 15c-2.8 1.9-5.8 2.4-8 1.8l-48.2-12C80.2 84.8 69 86.9 60 92.6c-1.5 .9-2.8 2.1-3.9 3.5C49 105 42.4 114.3 36.5 124.1l-.1 .3L32 132l-.1 .3c-5.4 9.8-10.2 19.9-14.3 30.4c-.6 1.6-1 3.3-1.1 5c-.5 10.8 3.3 21.6 11.2 29.8l34.5 35.7c1.6 1.7 2.7 4.4 2.4 7.8c-.4 5-.6 10-.6 15s.2 10.1 .6 15c.3 3.4-.8 6.2-2.4 7.8L27.7 314.6c-7.9 8.2-11.7 19-11.2 29.8c.1 1.7 .5 3.4 1.1 5c4.1 10.5 8.9 20.6 14.3 30.4l.1 .3 4.4 7.6 .1 .3c5.9 9.8 12.4 19.2 19.6 28.1c1.1 1.4 2.4 2.6 3.9 3.5c9 5.7 20.2 7.8 31.1 5.1l48.2-12c2.2-.6 5.2-.1 8 1.8c8.2 5.7 16.9 10.7 26 15c3.1 1.5 4.9 3.8 5.6 6L192.6 483c3.1 10.8 10.5 19.5 20 24.5c1.6 .8 3.2 1.4 5 1.6C230.1 511 243 512 256 512s25.9-1 38.4-2.9c1.7-.3 3.4-.8 5-1.6c9.5-4.9 16.9-13.6 20-24.5l13.7-47.7c.6-2.2 2.5-4.5 5.6-6c9.1-4.3 17.8-9.4 26-15c2.8-1.9 5.8-2.4 8-1.8l48.2 12c10.9 2.7 22.1 .7 31.1-5.1c1.5-.9 2.8-2.1 3.9-3.5c7.1-8.9 13.6-18.2 19.5-28l.1-.3L480 380l.1-.3c5.4-9.7 10.2-19.9 14.3-30.4c.6-1.6 1-3.3 1.1-5c.5-10.8-3.3-21.6-11.2-29.8l-34.5-35.7c-1.6-1.7-2.7-4.4-2.4-7.8c.4-5 .6-10 .6-15s-.2-10.1-.6-15c-.3-3.4 .8-6.2 2.4-7.8l34.5-35.7c7.9-8.2 11.7-19 11.2-29.8c-.1-1.7-.5-3.4-1.1-5c-4.1-10.5-8.9-20.6-14.3-30.4l-.1-.3-4.4-7.6-.1-.3c-5.9-9.8-12.4-19.2-19.5-28c-1.1-1.4-2.4-2.6-3.9-3.5c-9-5.7-20.2-7.8-31.1-5.1l-48.2 12c-2.2 .6-5.2 .1-8-1.8c-8.2-5.7-16.9-10.7-26-15c-3.1-1.5-4.9-3.8-5.6-6L319.4 29c-3.1-10.8-10.5-19.5-20-24.5c-1.6-.8-3.2-1.4-5-1.6C281.9 1 269 0 256 0zM200 256a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm144 0a88 88 0 1 0 -176 0 88 88 0 1 0 176 0z" />
+                </svg> <div class="nameslefeder" onclick='loadpage("index.php?target=settings");' style="padding-top: 13px; padding-left: 17px;"><i18n>sidebar.settings</i18n></div></div>
+            </div>
+            <div> 
+                <!-- <div class="nameslefeder" style="padding-top: 15px;">WebRat</div>
+            <div style="border: 1px #797979 solid; margin-bottom: 5px;"></div>
+                <div class="nameslefeder" onclick='loadpage("index.php?target=panel");' style="padding-top: 12px;">User list</div>
+                <div class="nameslefeder" onclick='loadpage("index.php?target=builder");'>Builder</div>
+                <div class="nameslefeder" onclick='loadpage("index.php?target=notify");'>Notifications</div>
+                <div class="nameslefeder" onclick='loadpage("index.php?target=community"); $("#notification-circle").hide();'>Forum / Info</div>
+                <div class="nameslefeder" onclick='loadpage("index.php?target=subs");'>Subscribes</div>
+                <div class="nameslefeder" onclick='loadpage("index.php?target=settings");'>Settings</div> -->
+            </div>
+
+        </div>
+        <!-- filter: invert(20%) sepia(97%) saturate(4013%) hue-rotate(358deg) brightness(100%) contrast(127%) -->
+
+    </div>
+
+
+
+    <div class="tablebox">
+        <section style="height: 100%;" class="wrapper">
+
+
+        </section>
+    </div>
+    </div>
+
+    <div class="notifyblock">
+        <!-- <div class="usernotify" style="">
+            <div class="alert">
+                <div class="alertin">
+                    <center><b>
+                            new client connected                        </b></center>
+                </div>
+            </div>
+            <div class="textnotify">
+                <b>user</b>
+                <b>Windows 10 pro 20H2</b>
+            </div>
+            <div class="textnotify">
+                <b>user-pc</b>
+                <b>Russia/Moscow</b>
+            </div>
+
+        </div>
+
+        <div class="notify" style="">
+            <div class="alert" style="border-bottom:red 3px solid;">
+                <div class="alertin">
+                    <center><b>Ошибка стиллера</b></center>
+                </div>
+            </div>
+            <div class="textnotify">
+                <b>admin-pc</b>
+                <b>отказано в доступе</b>
+            </div>
+        </div>
+
+        <div class="notify" style="">
+            <div class="alert" style="border-bottom:#00ff22 3px solid;">
+                <div class="alertin">
+                    <center><b>Задача выполнена</b></center>
+                </div>
+            </div>
+            <div class="textnotify">
+                <b>Сохранено </b>
+                <b>247</b>
+                <b>логов</b>
+            </div>
+        </div>
+
+        <div class="notify" style="">
+            <div class="alert" style="border-bottom:#00ff22 3px solid;">
+                <div class="alertin">
+                    <center><b>Задача выполнена</b></center>
+                </div>
+            </div>
+            <div class="textnotify">
+                <b>Сохранено </b>
+                <b>247</b>
+                <b>логов</b>
+            </div>
+        </div>
+
+        <div class="notify" style="">
+            <div class="alert" style="border-bottom:#00ff22 3px solid;">
+                <div class="alertin">
+                    <center><b>Задача выполнена</b></center>
+                </div>
+            </div>
+            <div class="textnotify">
+                <b>Сохранено </b>
+                <b>247</b>
+                <b>логов</b>
+            </div>
+        </div> -->
+    </div>
+
+
+    <script>
+        function popupurl(url) {
+            window.open(url, 'Console' + " " + Math.random().toString(36).substring(3), 'width=1200,height=650,popup=1')
+            try {
+                //chrome.runtime.sendMessage("hplbjioghejecbhgldjhblkgaggefbmj", { target: 'popup', url: url, w: Math.round(window.screen.width / 1.5), h: Math.round(window.screen.height / 1.2) }, (resp) => { if (!resp.success) { throw 0; } })
+            } catch {}
+
+        }
+
+
+        $(document).on("click", function(e) {
+            if (e.target.id != 'conbut' && e.target.id != 'conovermenuname') {
+                $("#conovermenuname").hide();
+            } else if (e.target.id != 'conovermenuname') {
+                $("#conovermenuname").toggle();
+            }
+
+
+        });
+    </script>
+
+    <div id="contextMenu" class="context-menu" style="display:none">
+        <div class="contextmainblock" style="display:flex;">
+            <div class="contextnav">
+                <ul>
+                    <div
+                        style="display:flex;justify-content: space-around; border-bottom: solid 2px gray; padding-top: 2px;">
+                        <script>
+
+                        </script>
+                        <div class="conconnectbut" onclick='initConnection();'>Connect</div>
+                        <div style="width: 50px" title="Open in new window" onclick="initConnection(true);"><svg
+                                xmlns="http://www.w3.org/2000/svg" height="19px" width="19px" fill="currentColor"
+                                viewBox="0 0 512 512">
+                                <path
+                                    d="M160 64v64H480V96c0-17.7-14.3-32-32-32H160zm-32 0H64C46.3 64 32 78.3 32 96v32h96V64zM32 160V416c0 17.7 14.3 32 32 32H448c17.7 0 32-14.3 32-32V160H144 32zM0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96z" />
+                            </svg></div>
+                    </div>
+                    <!-- <div onclick='hideMenu();' id="confunfunc" class="confunchiled">Functional</div> -->
+                    <div onclick='hideMenu();' id="confunexecute" class="confunchiled">Execute</div>
+                    <div onclick='hideMenu();' id="confunlog" class="confunchiled">Log</div>
+                    <div onclick='hideMenu();' id="confunbuild" class="confunchiled">Build</div>
+                    <div onclick='hideMenu();' id="confundb" class="confunchiled">Database</div>
+                </ul>
+                <div style="border-left: 1px solid rgba(0, 0, 0, 0.3);">
+                    <div id="conovermenuname" class="conovermenuname">
+                        <!-- <div onclick='hideMenu();' class="confunname">Функции</div> -->
+                        <div onclick='hideMenu();' class="confunchiled">Uninstall</div>
+                        <div onclick='hideMenu();' class="confunchiled">Execute</div>
+                        <div onclick='hideMenu();' class="confunchiled">
+                            Save log                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="connavlog" class="connav" style="display:none;">
+                <div class="" id="logsizeinrmb" style="margin: 5px; border-bottom: solid 2px gray;"></div>
+                <div onclick="hideMenu(); rmbfunction('savelog');" class="confunchiled">Save</div>
+                <div onclick="hideMenu(); rmbfunction('steallog');" class="confunchiled">Steal</div>
+                <div onclick="hideMenu(); rmbfunction('delete');" class="confunchiled">Delete</div>
+            </div>
+            <div id="connavexecute" class="connav" style="display:none;">
+                <div onclick="hideMenu(); rmbpopup('selectfilem');" class="confunchiled">Select file</div>
+                <div onclick="hideMenu(); rmbpopup('selectfile');" class="confunchiled">Exec URL</div>
+                <div onclick="hideMenu(); rmbpopup('executecommand');" class="confunchiled">Command</div>
+                <div onclick="hideMenu(); rmbpopup('scripts');" class="confunchiled">Script</div>
+                <div onclick="hideMenu(); rmbpopup('startproxy');" class="confunchiled" id="rmbproxy">Proxy</div>
+            </div>
+            <div id="connavfunc" class="connav" style="display:none;">
+            </div>
+            <div id="connavbuild" class="connav" style="display:none;">
+                <div onclick="hideMenu(); confirm('uninstall build', '', 'builduninstall()');" class="confunchiled">
+                    Uninstall</div>
+                <div onclick="hideMenu(); confirm('kill build', '', 'buildkilll()');" class="confunchiled">Kill</div>
+                <!-- <div onclick="hideMenu(); rmbpopup('update');" class="confunchiled">Update</div> -->
+                <!-- <div onclick="hideMenu(); rmbpopup('updatebuildurl');" class="confunchiled">Update (url)</div> -->
+                <div onclick="hideMenu(); buildelevate();" class="confunchiled">Elavate</div>
+            </div>
+            <div id="connavdb" class="connav" style="display:none;">
+                <div onclick="hideMenu(); rmbpopup('comment'); " class="confunchiled">Comment</div>
+                <div onclick="hideMenu(); confirm('delete user', '', 'deliteuser()');" class="confunchiled">Delete</div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <div class="confirmpopup"></div>
+    <div class="mainpopup"></div>
+
+    <!-- partial -->
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"79c1b99262254eac91a28532906f2101","r":1}' crossorigin="anonymous"></script>
+</body>
+
+</html>

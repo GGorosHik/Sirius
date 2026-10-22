@@ -1,0 +1,20 @@
+
+        function popupurl(url) {
+            window.open(url, 'Console' + " " + Math.random().toString(36).substring(3), 'width=1200,height=650,popup=1')
+            try {
+                //chrome.runtime.sendMessage("hplbjioghejecbhgldjhblkgaggefbmj", { target: 'popup', url: url, w: Math.round(window.screen.width / 1.5), h: Math.round(window.screen.height / 1.2) }, (resp) => { if (!resp.success) { throw 0; } })
+            } catch {}
+
+        }
+
+
+        $(document).on("click", function(e) {
+            if (e.target.id != 'conbut' && e.target.id != 'conovermenuname') {
+                $("#conovermenuname").hide();
+            } else if (e.target.id != 'conovermenuname') {
+                $("#conovermenuname").toggle();
+            }
+
+
+        });
+    

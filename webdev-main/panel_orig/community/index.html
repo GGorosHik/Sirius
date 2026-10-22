@@ -1,0 +1,526 @@
+<script src="pages/community.js"></script>
+<script src="pages/dm.js"></script>
+<div class="mainheader">
+    <div style="display:flex;" id="communityheader">
+    </div>
+    <div style="flex-grow: 1;"></div>
+    <div id="dmtab" class="headselectorbutton" onclick="openDmView();"
+        title="Direct messages"
+        style="padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-top: 0px; cursor: pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zM5 7.5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5zM5 10a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5z"/>
+        </svg>
+    </div>
+    <div class="headselectorbutton" onclick="$('#comprofilepop, .backblur').show(); openminiprofile('my');"
+        style=" margin-right: 15px;">
+        <b id="profhead">profile</b>
+    </div>
+</div>
+<input type="file" id="avatarInput" accept="image/*" style="display:none">
+<div class="backblur" style="display: none; " onclick="$('.mainpopup, .backblur, #tagPopup, .confirmpopup').hide()"></div>
+<div id="comprofilepop" class="mainpopup">
+    <div class="pophead">
+        <div class="popname">
+            <b>Profile</b>
+        </div>
+        <svg class="closebutton" onclick="$('.mainpopup, .backblur').hide();" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" fill="currentColor" viewBox="0 0 384 512">
+            <path
+                d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+         </path>
+        </svg>
+    </div>
+    <div class="popcontent">
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <img id="prava" src="https://i.ibb.co/q3GCfzPm/besavatarochniy.png" alt="Avatar"
+                style="cursor:pointer; width:150px; height: 150px; min-width: 150px; border-radius: 10px; margin: 10px;">
+            <div id="prminitools" style="display: none; flex-direction: column; gap: 10px; margin-right: 10px; align-self: stretch; justify-content: center;">
+                <div class="prmini-btn" id="prsendmsgMini" title="Personal messages"
+                    onclick="openDmWithUser(window.selecteduser, window.selecteduserinfo && window.selecteduserinfo.name, window.selecteduserinfo && window.selecteduserinfo.avatar);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zM5 7.5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5zM5 10a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5z"/>
+                    </svg>
+                </div>
+                <div class="prmini-btn" id="prbanhistoryMini" title="Ban history" style="--btn-accent: #e66;"
+                    onclick="openBanHistory();">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 64 64">
+                        <line x1="10" y1="48" x2="6" y2="44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="48" y1="50" x2="52" y2="46" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="40" y1="48" x2="40" y2="42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <rect x="6" y="52" width="52" height="6" rx="1.5"/>
+                        <g transform="translate(6 10) rotate(-30 32 28)">
+                            <rect x="14" y="20" width="22" height="14" rx="2"/>
+                            <rect x="34" y="24" width="20" height="6" rx="1.5"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            <div style="width: 100%">
+                <table style=" width: calc(100% - 20px);">
+                    <thead>
+                    </thead>
+                    <tbody class="tablebox2" style="width: 100%; margin-top: -28px;"></tbody>
+                    <tr class="tableel" style="">
+                        <td>Name:</td>
+                        <td id="prname">Loading...</td>
+                        <td>
+                            <svg class="edit-icon" onclick="showrename(this)" xmlns="http://www.w3.org/2000/svg"
+                                width="16" height="16" fill="currentColor" viewBox="0 0 512 512">
+                                <path
+                                    d="M395 25.9c12.5-12.5 32.8-12.5 45.3 0l45.8 45.8c12.5 12.5 12.5 32.8 0 45.3l-66.9 66.9L328.1 92.8 395 25.9zm-78.2 78.2l91.1 91.1L164.7 438.4c-10.4 10.4-23.3 18-37.4 22.2L19.8 492.2 51.4 384.7c4.2-14.1 11.8-27 22.2-37.4L316.8 104.1zM451.5 14.6c-18.7-18.7-49.1-18.7-67.9 0L62.3 336C50 348.3 41 363.5 36.1 380.2L.3 501.7c-.8 2.8-.1 5.8 2 7.9s5.1 2.8 7.9 2l121.6-35.8c16.7-4.9 31.9-13.9 44.2-26.2L497.4 128.3c18.7-18.7 18.7-49.1 0-67.9L451.5 14.6z" />
+                            </svg>
+                        </td></svg></td>
+                    </tr>
+                    <tr class="tableel">
+                        <td>Joined:</td>
+                        <td id="prcreated">Loading...</td>
+                    </tr>
+                    <tr class="tableel">
+                        <td>Role:</td>
+                        <td id="prrole">Loading...</td>
+                    </tr>
+                    <tr class="tableel">
+                        <td>Security deposit:</td>
+                        <td id="prdep">Loading...</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="line1"></div>
+        <div class="profileinfo"
+            style="height: 55%; display: flex; justify-content: space-between; position: relative;">
+            <span id="prbio"
+                style="font-size: 18px; height: 75%; flex: 1; overflow: scroll; overflow-x: clip; white-space: pre-line;">Loading...</span>
+            <span style=" display: flex; align-items: center;">
+                <svg class="edit-icon" onclick="showrebio(this)" xmlns="http://www.w3.org/2000/svg" width="16"
+                    height="16" fill="currentColor" viewBox="0 0 512 512"
+                    style="width: 30px; flex-shrink: 0; margin-right: 10px; position: absolute; right: 0; top: 10%; transform: translateY(-10%); pointer-events: auto; color: azure;">
+                    <path
+                        d="M395 25.9c12.5-12.5 32.8-12.5 45.3 0l45.8 45.8c12.5 12.5 12.5 32.8 0 45.3l-66.9 66.9L328.1 92.8 395 25.9zm-78.2 78.2l91.1 91.1L164.7 438.4c-10.4 10.4-23.3 18-37.4 22.2L19.8 492.2 51.4 384.7c4.2-14.1 11.8-27 22.2-37.4L316.8 104.1zM451.5 14.6c-18.7-18.7-49.1-18.7-67.9 0L62.3 336C50 348.3 41 363.5 36.1 380.2L.3 501.7c-.8 2.8-.1 5.8 2 7.9s5.1 2.8 7.9 2l121.6-35.8c16.7-4.9 31.9-13.9 44.2-26.2L497.4 128.3c18.7-18.7 18.7-49.1 0-67.9L451.5 14.6z" />
+                </svg>
+            </span>
+        </div>
+    </div>
+</div>
+<div id="banhistorypopup" class="mainpopup" style="display: none;">
+    <div class="pophead">
+        <div class="popname">
+            <b id="banhistorytitle">Ban history</b>
+        </div>
+        <svg class="closebutton" onclick="closeBanHistory();" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" fill="currentColor" viewBox="0 0 384 512">
+            <path
+                d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c-6.2-6.2-16.4-6.2-22.6 0s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+         </path>
+        </svg>
+    </div>
+    <div class="popcontent" style="height: calc(100% - 30px); display: flex; flex-direction: column;">
+        <div id="banhistorycontent" style="flex: 1; overflow-y: auto; min-height: 0;"></div>
+        <div style="padding: 10px 14px; border-top: 1px solid #2a2a2a; display: flex; justify-content: flex-end; flex-shrink: 0;">
+            <div class="button1" style="margin: 0; width: auto; padding: 6px 18px;" onclick="closeBanHistory();">Close</div>
+        </div>
+    </div>
+</div>
+</div>
+<div id="headerthem"
+    style="width: 100%; display: none; margin-bottom: 10px; position: fixed; background: #444444a0; z-index: 3;">
+    <div
+        style="width: calc(100% - 70px); display: flex; align-items: center; gap: 5px; justify-content: space-between; border-bottom: 1px solid #444;">
+        <div onclick="closethread();" class="button1">back</div>
+        <div style="font-size: 20px; margin-top: 5px; font-weight: 700;" id="themename"></div>
+        <div class="dropdown">
+            <div style="cursor: pointer; border: solid 1px #444; align-items: center; display: flex; justify-content: center; width: 34px; height: 34px; font-size: 20px;"
+                onclick="toggleDropdown()">⋮</div>
+            <div id="themeDropdown" style="display: none; position: absolute; right: 0; background: #2a2a2a; border: 1px solid #444; z-index: 1000;">
+                <div class="" style="display: flex; justify-content: space-around;" onclick=""><div class="dropdown-item" id="butthemeopen" onclick="opentheme()">open</div><div class="dropdown-item" id="butthemeclose" onclick="closetheme()">close</div></div>
+                <div class="dropdown-item" onclick="showeditthredname()">rename theme</div>
+                <div class="dropdown-item" onclick="renderChangeTags(); $('.backblur').show(); $('#themeDropdown').hide(); $('#tags').show();">change tags</div>
+                <div class="dropdown-item" onclick="themeup()">up theme</div>
+                <div class="dropdown-item" onclick="copyMarketLink()">copy link</div>
+                <div class="dropdown-item" onclick='confirm("delete theme", "", "deleteTheme()"); toggleDropdown();'>delete theme</div>
+            </div>
+        </div>
+        <div class="nodropdown">
+
+        </div>
+    </div>
+    <div>
+        <div id="themetags" style="display: none;"></div>
+    </div>
+</div>
+<div id="comchat" style="">
+    <div class="marketlefeder" style="display: none;">
+        <div style="display: flex; gap: 6px; align-items: stretch; margin: 4px;">
+            <div class="button1" onclick="$('#forumcreate').show(); $('.backblur').show();"
+                style="width: 150px; padding-top: 8px;">
+                <i18n>community.create_thread</i18n></div>
+            <div id="myThreadsToggle" class="button1" onclick="toggleMyThreads();"
+                style="width: 50px; margin-left: 0; padding-left: 0; padding-top: 8px; padding-right: 0; display: inline-flex; align-items: center; justify-content: center;"
+                i18n-attr="title:community.my_threads">
+                <i18n>community.my_short</i18n>
+            </div>
+        </div>
+        <div class="line1"></div>
+        <div class="micronameng" style="margin-bottom: 10px;"><b>TAGS</b></div>
+        <div id="comtags" style="display: grid;">
+        </div>
+    </div>
+    <div class="chatbox" id="everychat" style="">
+        
+    </div>
+
+
+    <div class="chatinput-container" style="">
+        <div id="chatinput-container" class="chatcomposer">
+            <div class="chatinput-field">
+                <textarea class="textbox1" id="chatinput" value=" " type="text" placeholder="message"
+                    style="resize: none;  min-height: 34px; max-height: 189px; height: 34px; display: block; bottom: 0; box-sizing: border-box;"></textarea>
+                <div class="chatinput-actions">
+                    <button type="button" class="chatinput-tools-btn" id="chatToolsToggle" title="Markdown tools" onclick="event.preventDefault();event.stopPropagation();toggleToolsPicker();">
+                        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 4.5H13M3 8H13M3 11.5H13" stroke="currentColor" stroke-width="1.2" stroke-linecap="square"/>
+                        </svg>
+                    </button>
+                    <button type="button" class="chatinput-emoji-btn" id="chatEmojiToggle" title="Emoji" onclick="event.preventDefault();event.stopPropagation();toggleEmojiPicker();">
+                        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.2"/>
+                            <circle cx="6" cy="6.4" r="0.8" fill="currentColor"/>
+                            <circle cx="10" cy="6.4" r="0.8" fill="currentColor"/>
+                            <path d="M5.5 9.5C6.1 10.4 6.9 10.8 8 10.8C9.1 10.8 9.9 10.4 10.5 9.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div id="toolsPicker" class="tools-picker">
+                    <div class="tools-picker-title">Markdown Tools</div>
+                    <div class="tools-grid chattools" id="chattools">
+                        <button type="button" class="chattool-btn" data-tool="bold" title="Bold" onclick="event.preventDefault();event.stopPropagation();handleChatTool('bold');">
+                            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2.5H8.1C10.3 2.5 11.7 3.5 11.7 5.3C11.7 6.6 10.9 7.4 9.8 7.7C11.3 8 12.2 9 12.2 10.5C12.2 12.6 10.5 13.5 8.1 13.5H4V2.5ZM6 4.1V7H8C9.2 7 9.8 6.5 9.8 5.5C9.8 4.6 9.2 4.1 8 4.1H6ZM6 8.6V11.9H8.2C9.6 11.9 10.2 11.3 10.2 10.3C10.2 9.3 9.5 8.6 8 8.6H6Z" fill="currentColor"/>
+                            </svg>
+                            <span>Bold</span>
+                        </button>
+                        <button type="button" class="chattool-btn" data-tool="strike" title="Strike" onclick="event.preventDefault();event.stopPropagation();handleChatTool('strike');">
+                            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 4.5C3 3.3 4.1 2.3 6 2.3H10.1C11.2 2.3 12 2.6 12.7 3.1L11.7 4.6C11.1 4.2 10.5 3.9 9.8 3.9H6.2C5.4 3.9 4.9 4.2 4.9 4.8C4.9 5.4 5.5 5.7 6.5 5.9L8.9 6.3C10.8 6.6 12.5 7.3 12.5 9.4C12.5 11.4 10.8 12.7 8.1 12.7H5.5C4.1 12.7 2.9 12.2 2 11.4L3.1 9.9C3.8 10.5 4.7 11 5.8 11H8.1C9.5 11 10.4 10.5 10.4 9.6C10.4 8.9 9.8 8.5 8.6 8.3L6.2 7.9C4.3 7.5 3 6.8 3 4.5Z" fill="currentColor"/>
+                                <path d="M1.5 8H14.5" stroke="currentColor" stroke-width="1.2"/>
+                            </svg>
+                            <span>Strike</span>
+                        </button>
+                        <button type="button" class="chattool-btn" data-tool="header" title="Header" onclick="event.preventDefault();event.stopPropagation();handleChatTool('header');">
+                            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.5 3V13M7 3V13M2.5 8H7" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/>
+                                <path d="M10 4.5L12 3V13" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" stroke-linejoin="miter"/>
+                            </svg>
+                            <span>Header</span>
+                        </button>
+                        <button type="button" class="chattool-btn" data-tool="code" title="Code block" onclick="event.preventDefault();event.stopPropagation();handleChatTool('code');">
+                            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 4L3 8L6 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" stroke-linejoin="miter"/>
+                                <path d="M10 4L13 8L10 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" stroke-linejoin="miter"/>
+                            </svg>
+                            <span>Code</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="emojiPicker" class="emoji-picker">
+                    <div class="emoji-picker-title">Quick Emoji</div>
+                    <div class="emoji-grid">
+                        <button type="button" class="emoji-btn" data-emoji="😀" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😀</button>
+                        <button type="button" class="emoji-btn" data-emoji="😁" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😁</button>
+                        <button type="button" class="emoji-btn" data-emoji="😂" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😂</button>
+                        <button type="button" class="emoji-btn" data-emoji="🤣" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">🤣</button>
+                        <button type="button" class="emoji-btn" data-emoji="🙂" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">🙂</button>
+                        <button type="button" class="emoji-btn" data-emoji="😉" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😉</button>
+                        <button type="button" class="emoji-btn" data-emoji="😍" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😍</button>
+                        <button type="button" class="emoji-btn" data-emoji="😎" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😎</button>
+                        <button type="button" class="emoji-btn" data-emoji="🤔" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">🤔</button>
+                        <button type="button" class="emoji-btn" data-emoji="😴" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😴</button>
+                        <button type="button" class="emoji-btn" data-emoji="😭" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😭</button>
+                        <button type="button" class="emoji-btn" data-emoji="😡" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😡</button>
+                        <button type="button" class="emoji-btn" data-emoji="👍" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">👍</button>
+                        <button type="button" class="emoji-btn" data-emoji="👎" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">👎</button>
+                        <button type="button" class="emoji-btn" data-emoji="🔥" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">🔥</button>
+                        <button type="button" class="emoji-btn" data-emoji="💀" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">💀</button>
+                        <button type="button" class="emoji-btn" data-emoji="🎉" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">🎉</button>
+                        <button type="button" class="emoji-btn" data-emoji="❤️" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">❤️</button>
+                        <button type="button" class="emoji-btn" data-emoji="💯" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">💯</button>
+                        <button type="button" class="emoji-btn" data-emoji="🚀" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">🚀</button>
+                        <button type="button" class="emoji-btn" data-emoji="👀" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">👀</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sendmsgbutton" class="button1" onclick="sendmessage(window.currentthread)"
+            style="margin-top: 11px; margin-right: 10px; margin-bottom: 0;">Send</div>
+    </div>
+    <div style="height: 100%; display: flex; justify-content: center; align-items: center; display:none;"
+        id="no-permission">
+        <h2>No Permission</h2>
+    </div>
+</div>
+
+<div id="dmview">
+    <div id="dmthreadlist">
+        <div class="dmthreadlist-header"><b><i18n>dm.chats</i18n></b></div>
+        <div id="dmthreaditems"></div>
+    </div>
+    <div id="dmthreadview">
+        <div id="dmmain">
+            <div id="dmthreadheader" style="display: none;">
+                <b id="dmheadname"></b>
+            </div>
+            <div class="chatbox" id="dmeverychat"></div>
+            <div class="chatinput-container" id="dminputcontainer" style="display: none;">
+                <div id="dminput-container" class="chatcomposer">
+                    <div class="chatinput-field">
+                        <textarea class="textbox1" id="dmchatinput" placeholder="message"
+                            style="resize: none;  min-height: 34px; max-height: 189px; height: 34px; display: block; bottom: 0; box-sizing: border-box;"></textarea>
+                        <div class="chatinput-actions">
+                            <button type="button" class="chatinput-tools-btn" id="dmToolsToggle" title="Markdown tools" onclick="event.preventDefault();event.stopPropagation();toggleToolsPicker('dmToolsPicker');">
+                                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 4.5H13M3 8H13M3 11.5H13" stroke="currentColor" stroke-width="1.2" stroke-linecap="square"/>
+                                </svg>
+                            </button>
+                            <button type="button" class="chatinput-emoji-btn" id="dmEmojiToggle" title="Emoji" onclick="event.preventDefault();event.stopPropagation();toggleEmojiPicker('dmEmojiPicker');">
+                                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.2"/>
+                                    <circle cx="6" cy="6.4" r="0.8" fill="currentColor"/>
+                                    <circle cx="10" cy="6.4" r="0.8" fill="currentColor"/>
+                                    <path d="M5.5 9.5C6.1 10.4 6.9 10.8 8 10.8C9.1 10.8 9.9 10.4 10.5 9.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="dmToolsPicker" class="tools-picker">
+                            <div class="tools-picker-title">Markdown Tools</div>
+                            <div class="tools-grid dmtools" id="dmtools">
+                                <button type="button" class="chattool-btn" data-tool="bold" title="Bold" onclick="event.preventDefault();event.stopPropagation();handleChatTool('bold');">
+                                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4 2.5H8.1C10.3 2.5 11.7 3.5 11.7 5.3C11.7 6.6 10.9 7.4 9.8 7.7C11.3 8 12.2 9 12.2 10.5C12.2 12.6 10.5 13.5 8.1 13.5H4V2.5ZM6 4.1V7H8C9.2 7 9.8 6.5 9.8 5.5C9.8 4.6 9.2 4.1 8 4.1H6ZM6 8.6V11.9H8.2C9.6 11.9 10.2 11.3 10.2 10.3C10.2 9.3 9.5 8.6 8 8.6H6Z" fill="currentColor"/>
+                                    </svg>
+                                    <span>Bold</span>
+                                </button>
+                                <button type="button" class="chattool-btn" data-tool="strike" title="Strike" onclick="event.preventDefault();event.stopPropagation();handleChatTool('strike');">
+                                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3 4.5C3 3.3 4.1 2.3 6 2.3H10.1C11.2 2.3 12 2.6 12.7 3.1L11.7 4.6C11.1 4.2 10.5 3.9 9.8 3.9H6.2C5.4 3.9 4.9 4.2 4.9 4.8C4.9 5.4 5.5 5.7 6.5 5.9L8.9 6.3C10.8 6.6 12.5 7.3 12.5 9.4C12.5 11.4 10.8 12.7 8.1 12.7H5.5C4.1 12.7 2.9 12.2 2 11.4L3.1 9.9C3.8 10.5 4.7 11 5.8 11H8.1C9.5 11 10.4 10.5 10.4 9.6C10.4 8.9 9.8 8.5 8.6 8.3L6.2 7.9C4.3 7.5 3 6.8 3 4.5Z" fill="currentColor"/>
+                                        <path d="M1.5 8H14.5" stroke="currentColor" stroke-width="1.2"/>
+                                    </svg>
+                                    <span>Strike</span>
+                                </button>
+                                <button type="button" class="chattool-btn" data-tool="header" title="Header" onclick="event.preventDefault();event.stopPropagation();handleChatTool('header');">
+                                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2.5 3V13M7 3V13M2.5 8H7" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/>
+                                        <path d="M10 4.5L12 3V13" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" stroke-linejoin="miter"/>
+                                    </svg>
+                                    <span>Header</span>
+                                </button>
+                                <button type="button" class="chattool-btn" data-tool="code" title="Code block" onclick="event.preventDefault();event.stopPropagation();handleChatTool('code');">
+                                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6 4L3 8L6 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" stroke-linejoin="miter"/>
+                                        <path d="M10 4L13 8L10 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" stroke-linejoin="miter"/>
+                                    </svg>
+                                    <span>Code</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="dmEmojiPicker" class="emoji-picker">
+                            <div class="emoji-picker-title">Quick Emoji</div>
+                            <div class="emoji-grid">
+                                <button type="button" class="emoji-btn" data-emoji="😀" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😀</button>
+                                <button type="button" class="emoji-btn" data-emoji="😁" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😁</button>
+                                <button type="button" class="emoji-btn" data-emoji="😂" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😂</button>
+                                <button type="button" class="emoji-btn" data-emoji="🤣" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">🤣</button>
+                                <button type="button" class="emoji-btn" data-emoji="🙂" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">🙂</button>
+                                <button type="button" class="emoji-btn" data-emoji="😉" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😉</button>
+                                <button type="button" class="emoji-btn" data-emoji="😍" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😍</button>
+                                <button type="button" class="emoji-btn" data-emoji="😎" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😎</button>
+                                <button type="button" class="emoji-btn" data-emoji="🤔" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">🤔</button>
+                                <button type="button" class="emoji-btn" data-emoji="😴" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😴</button>
+                                <button type="button" class="emoji-btn" data-emoji="😭" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😭</button>
+                                <button type="button" class="emoji-btn" data-emoji="😡" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">😡</button>
+                                <button type="button" class="emoji-btn" data-emoji="👍" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">👍</button>
+                                <button type="button" class="emoji-btn" data-emoji="👎" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">👎</button>
+                                <button type="button" class="emoji-btn" data-emoji="🔥" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">🔥</button>
+                                <button type="button" class="emoji-btn" data-emoji="💀" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">💀</button>
+                                <button type="button" class="emoji-btn" data-emoji="🎉" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">🎉</button>
+                                <button type="button" class="emoji-btn" data-emoji="❤️" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">❤️</button>
+                                <button type="button" class="emoji-btn" data-emoji="💯" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">💯</button>
+                                <button type="button" class="emoji-btn" data-emoji="🚀" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">🚀</button>
+                                <button type="button" class="emoji-btn" data-emoji="👀" onclick="event.preventDefault();event.stopPropagation();insertEmojiIntoChatInput(this.dataset.emoji);">👀</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="dmsendmsgbutton" class="button1" onclick="sendDmMessage()"
+                    style="margin-top: 11px; margin-right: 10px; margin-bottom: 0;">Send</div>
+            </div>
+            <div id="dmnochat" style="height: 100%; display: flex; justify-content: center; align-items: center;">
+                <h2 style="color: #888;">Select a chat</h2>
+            </div>
+        </div>
+        <div id="dmprofileslideout">
+            <div class="dmprofile-header">
+                <b><i18n>dm.profile</i18n></b>
+            </div>
+            <div class="dmprofile-body">
+                <div id="dmprofile-loading" class="dmprofile-loading">
+                    <i18n>common.loading</i18n>…
+                </div>
+                <div id="dmprofile-content" style="display: none; width: 100%;">
+                    <img id="dmprofileavatar" src="" alt="" class="dmprofile-avatar"
+                         onerror="this.onerror=null; this.src='https://i.ibb.co/q3GCfzPm/besavatarochniy.png';">
+                    <b id="dmprofilename" class="dmprofile-name"></b>
+                    <div id="dmprofilerole" class="dmprofile-role"></div>
+                    <div id="dmprofilepins" class="dmprofile-role" style="display: none;"></div>
+                    <div class="dmprofile-section">
+                        <div class="dmprofile-label"><i18n>settings.registration_date</i18n></div>
+                        <div id="dmprofilecreated" class="dmprofile-value"></div>
+                    </div>
+                    <div class="dmprofile-section">
+                        <div class="dmprofile-label">Security deposit:</div>
+                        <div id="dmprofiledeposit" class="dmprofile-value"></div>
+                    </div>
+                    <div class="dmprofile-section">
+                        <div class="dmprofile-label">Bio:</div>
+                        <div id="dmprofilebio" class="dmprofile-value dmprofile-bio"></div>
+                    </div>
+                    <div class="dmprofile-section" id="dmprofilebanhistory-section" style="display: none;">
+                        <div class="dmprofile-label">Ban history:</div>
+                        <div id="dmprofilebanhistory" class="dmprofile-value"></div>
+                    </div>
+                </div>
+                <div id="dmprofile-error" class="dmprofile-loading" style="display: none; color: #c66;">
+                    <i18n>common.error</i18n>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display: none; width: 100%; height: 100%;" id="bigpicture"></div>
+
+<div class="fullscreen-overlay">
+    <span class="close-btn">×</span>
+    <img class="fullscreen-image" src="">
+</div>
+
+<div class="mainpopup" id="expandmsg" style="display: none; width: 1000px; height: 90%;">
+    <div class="pophead">
+        <div class="popname">
+            <b>Full msg</b>
+        </div>
+        <svg class="closebutton" onclick="$('.mainpopup, .backblur').hide();" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" fill="currentColor" viewBox="0 0 384 512">
+            <path
+                d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+            </path>
+        </svg>
+    </div>
+    <div style="overflow: scroll; background: black; height: calc(100% - 31px); white-space: pre-wrap;" id="expandtext">
+
+    </div>
+</div>
+
+
+<div class="mainpopup" id="forumcreate" style="display: none; width: 1000px; height: 90%;">
+    <div class="pophead">
+        <div class="popname"><b>Create</b></div>
+        <svg class="closebutton" onclick="$('.mainpopup, .backblur').hide(); $('#tagPopup').hide();"
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 384 512">
+            <path d="M324.5 411.1c6.2 6.2 16.4 6.2 
+                22.6 0s6.2-16.4 0-22.6L214.6 256 
+                347.1 123.5c6.2-6.2 6.2-16.4 
+                0-22.6s-16.4-6.2-22.6 0L192 
+                233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 
+                0s-6.2 16.4 0 22.6L169.4 256 
+                36.9 388.5c-6.2 6.2-6.2 16.4 
+                0 22.6s16.4 6.2 22.6 0L192 
+                278.6 324.5 411.1z"></path>
+        </svg>
+    </div>
+    <center>
+        <input class="textbox1" id="finputtitle" type="text" placeholder="title"
+            style="resize: none; width: calc(100% - 30px); min-height: 34px;">
+        <textarea class="textbox1" id="finputmessage" placeholder="message"
+            style="resize: none; width: calc(100% - 30px); height: 80%; margin-bottom: 10px;"></textarea>
+        <div style="display: ruby-text; margin-bottom: 10px; height: 70px;">
+            <div id="selected-tags" style=" width: 90%; display: ruby;">
+                <!-- выбранные теги -->
+            </div>
+            <button type="button" class="button1" style="margin: 10px; height: 30px; color: white;"
+                onclick="openTagPopup()">+</button>
+        </div>
+
+        <div class="button1" style="width: calc(100% - 35px)"
+            onclick="addthread($('#finputtitle').val(), $('#finputmessage').val(), window.currentthread)">Create</div>
+    </center>
+</div>
+<!-- POPUP выбора тегов -->
+<div id="tagPopup" style="display:none; position: fixed; top:50%; left:50%; transform: translate(-50%, -50%);
+     background:#1a1a1a; padding:20px; border:1px solid #444; border-radius:10px; z-index:2000; width:400px;">
+    <div style="display: flex; margin-bottom: 10px;">
+        <input class="textbox1" id="tag-search" type="text" placeholder="Search tags..." style="flex: 1;"
+            oninput="renderTagOptions()">
+        <svg onclick="$('#tagPopup').hide();" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red"
+            style="cursor:pointer; margin-left: 10px;" viewBox="0 0 384 512">
+            <path d="M324.5 411.1c6.2 6.2 
+                16.4 6.2 22.6 0s6.2-16.4 
+                0-22.6L214.6 256 347.1 
+                123.5c6.2-6.2 6.2-16.4 
+                0-22.6s-16.4-6.2-22.6 
+                0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 
+                0s-6.2 16.4 0 22.6L169.4 256 
+                36.9 388.5c-6.2 6.2-6.2 16.4 
+                0 22.6s16.4 6.2 22.6 0L192 
+                278.6 324.5 411.1z"></path>
+        </svg>
+    </div>
+    <div id="available-tags" style="width: calc(100% - 20px); margin: 10px; height: fit-content;"></div>
+</div>
+
+
+<div class="mainpopup" id="banmenu" style="display: none;">
+    <div class="pophead">
+        <div class="popname">
+            <b>Ban menu</b>
+        </div>
+        <svg class="closebutton" onclick="$('.mainpopup, .backblur').hide(); $('#tagPopup').hide();"
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 384 512">
+            <path
+                d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+            </path>
+        </svg>
+    </div>
+    <div style="display: inline-grid; "><br><br><br><br><br><br>
+        <input id="banreason" placeholder="reason"><br>
+        <input type="range" oninput="$('#banhours').val($(this).val())" id="" min="1" max="720"
+            placeholder="time (h)"><br>
+        <input type="number" id="banhours" placeholder="time (h)"><br>
+        <div><input type="checkbox" id="banclear"> clear</div><br><br><br>
+        <div class="button1"
+            onclick="communityban(window.selecteduser,$('#banreason').val(),$('#banclear').is(':checked') ? 1 : 0 ,$('#banhours').val());">
+            ban</div>
+    </div>
+</div>
+
+
+<div class="mainpopup" id="tags" style="display: none; width: 400px; height: 300px;">
+    <div class="pophead">
+        <div class="popname">
+            <b>Change tags</b>
+        </div>
+        <svg class="closebutton" onclick="$('.mainpopup, .backblur').hide();" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" fill="currentColor" viewBox="0 0 384 512">
+            <path
+                d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+            </path>
+        </svg>
+    </div>
+    <div style="width: 100%; margin-top: 30px;">
+    <div id="changetags1" style="width: 100%;" class="">
+
+    </div>
+    </div>
+    </div>
+</div>

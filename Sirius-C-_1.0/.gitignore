@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.exe
+bot.lock
+vcore/
+wall.png
+virus.log

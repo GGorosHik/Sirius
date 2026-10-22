@@ -1,0 +1,69 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+	<PropertyGroup>
+		<AssemblyName>Server</AssemblyName>
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<OutputType>WinExe</OutputType>
+		<UseWindowsForms>True</UseWindowsForms>
+		<TargetFramework>net472</TargetFramework>
+		<Prefer32Bit>True</Prefer32Bit>
+	</PropertyGroup>
+	<PropertyGroup>
+		<LangVersion>12.0</LangVersion>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+	</PropertyGroup>
+	<PropertyGroup>
+		<ApplicationIcon>app.ico</ApplicationIcon>
+		<RootNamespace />
+	</PropertyGroup>
+
+	<!-- Секция <Compile> была здесь и я её удалил -->
+
+	<ItemGroup>
+		<Reference Include="dnlib">
+			<HintPath>..\File Haven\KitStart\Liberium 1.8 Cleaned\dnlib.dll</HintPath>
+		</Reference>
+		<Reference Include="MaterialSkin">
+			<HintPath>..\File Haven\KitStart\Liberium 1.8 Cleaned\MaterialSkin.dll</HintPath>
+		</Reference>
+		<Reference Include="GMap.NET.WindowsForms">
+			<HintPath>..\File Haven\KitStart\Liberium 1.8 Cleaned\GMap.NET.WindowsForms.dll</HintPath>
+		</Reference>
+		<Reference Include="GMap.NET.Core">
+			<HintPath>..\File Haven\KitStart\Liberium 1.8 Cleaned\GMap.NET.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="cGeoIp">
+			<HintPath>..\File Haven\KitStart\Liberium 1.8 Cleaned\cGeoIp.dll</HintPath>
+		</Reference>
+		<Reference Include="NAudio.Core">
+			<HintPath>..\File Haven\KitStart\Liberium 1.8 Cleaned\NAudio.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="WinFormAnimation">
+			<HintPath>..\File Haven\KitStart\Liberium 1.8 Cleaned\WinFormAnimation.dll</HintPath>
+		</Reference>
+		<Reference Include="RjControls">
+			<HintPath>..\File Haven\KitStart\Liberium 1.8 Cleaned\RjControls.dll</HintPath>
+		</Reference>
+		<Reference Include="NAudio.WinForms">
+			<HintPath>..\File Haven\KitStart\Liberium 1.8 Cleaned\NAudio.WinForms.dll</HintPath>
+		</Reference>
+		<Reference Include="System.Core" />
+		<Reference Include="Newtonsoft.Json">
+			<HintPath>..\File Haven\KitStart\Liberium 1.8 Cleaned\Newtonsoft.Json.dll</HintPath>
+		</Reference>
+		<Reference Include="Leb128">
+			<HintPath>..\File Haven\KitStart\Liberium 1.8 Cleaned\Leb128.dll</HintPath>
+		</Reference>
+		<Reference Include="BouncyCastle.Crypto">
+			<HintPath>..\File Haven\KitStart\Liberium 1.8 Cleaned\BouncyCastle.Crypto.dll</HintPath>
+		</Reference>
+		<Reference Include="NAudio.WinMM">
+			<HintPath>..\File Haven\KitStart\Liberium 1.8 Cleaned\NAudio.WinMM.dll</HintPath>
+		</Reference>
+		<Reference Include="IconExtractor">
+			<HintPath>..\File Haven\KitStart\Liberium 1.8 Cleaned\IconExtractor.dll</HintPath>
+		</Reference>
+		<Reference Include="Vestris.ResourceLib">
+			<HintPath>..\File Haven\KitStart\Liberium 1.8 Cleaned\Vestris.ResourceLib.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+</Project>

@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="Server.Forms\FormAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormAutoRun.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormAutoRunSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormBulider.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormCamera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormCertificate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormChat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormClipboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormClipper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormDDos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormDesktop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormDeviceManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormDownload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormExplorer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormFun.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormHostsFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormHVNC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormHVNCrun.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormKeyLogger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormKeyLoggerPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormMicrophone.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormMinerEtc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormNetstat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormNotepad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormPerformance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormProcess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormPrograms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormRegedit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormRegisterValueEditBinary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormRegisterValueEditMultiString.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormRegisterValueEditString.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormRegisterValueEditWord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormReverseProxy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormReverseProxyR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormReverseProxyU.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormShell.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormSpeakerBot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormSystemSound.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormUpload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormVolumeControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormWinlocker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Forms\FormXmrMiner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Helper.HexEditor\HexEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Server.Helper\AeroListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Server.Helper\CircularProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Server.Helper\FormMaterial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Server.Helper\RegistryTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Server.Helper\WordTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Server\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

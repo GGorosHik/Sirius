@@ -1,0 +1,13 @@
+# локальные секреты и адреса — НИКОГДА не пушить
+secret.cfg
+rpc.cfg
+host.cfg
+master.cfg
+bot.lock
+vcore/
+__pycache__/
+*.pyc
+build/
+Surios.spec
+dist/
+*.exe
